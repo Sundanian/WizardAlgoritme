@@ -14,13 +14,14 @@ namespace WizardAlgoritme
         private Rectangle displayRectangle;
         private int cellRowCount;
         private List<Cell> grid;
+        private Wizard wizard;
 
         public List<Cell> Grid
         {
             get { return grid; }
             set { grid = value; }
         }
-        
+
         public GridManager(Graphics dc, Rectangle displayRectangle)
         {
             this.backBuffer = BufferedGraphicsManager.Current.Allocate(dc, displayRectangle);
@@ -36,6 +37,8 @@ namespace WizardAlgoritme
         public void GameLoop()
         {
             Render();
+
+            wizard.GetNextMove().Sprite = Image.FromFile(@"Images\test.png");
         }
 
         private void Render()
@@ -46,6 +49,7 @@ namespace WizardAlgoritme
             {
                 cell.Render(dc);
             }
+            wizard.Render(dc);
 
             backBuffer.Render();
         }
@@ -64,11 +68,20 @@ namespace WizardAlgoritme
                 }
             }
         }
+
         private void SetupWorld()
         {
             CreateGrid();
             SetUpCells();
-
+            Cell wStartCell = null;
+            foreach (Cell cell in grid)
+            {
+                if (cell.Position == new Point(1, 8))
+                {
+                    wStartCell = cell;
+                }
+            }
+            wizard = new Wizard(wStartCell, this);
         }
 
         private void SetUpCells()
@@ -281,7 +294,7 @@ namespace WizardAlgoritme
             {
                 if (item.MyType == CellType.EMPTY)
                 {
-                   item.Sprite = Image.FromFile(@"Images\Grass.png");
+                    item.Sprite = Image.FromFile(@"Images\Grass.png");
                 }
             }
             //Creates the key

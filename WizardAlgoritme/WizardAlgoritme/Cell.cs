@@ -88,6 +88,7 @@ namespace WizardAlgoritme
         {
             this.position = position;
             this.cellSize = size;
+            parent = this;
         }
 
         public void Render(Graphics dc)
