@@ -19,8 +19,11 @@ namespace WizardAlgoritme
         private int f;
         private Cell parent;
         private bool walkable;
+<<<<<<< HEAD
         private bool visitied;
 
+=======
+>>>>>>> 3e7b83d4f6218bc2548cbe0d54f5a6d99850def0
         public bool Walkable
         {
             get { return walkable; }
@@ -102,7 +105,11 @@ namespace WizardAlgoritme
         {
             this.position = position;
             this.cellSize = size;
+<<<<<<< HEAD
             visitied = false;
+=======
+            parent = this;
+>>>>>>> 3e7b83d4f6218bc2548cbe0d54f5a6d99850def0
         }
 
         public void CellCheck(Wizard wiz)

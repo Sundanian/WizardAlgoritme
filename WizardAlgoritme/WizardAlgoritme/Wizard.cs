@@ -16,8 +16,14 @@ namespace WizardAlgoritme
         List<Cell> openList;
         List<Cell> closedList;
         Cell position;
+        Point actualPosition;
         GridManager gridManager;
+        int keycounter;
+        Cell nextGoal;
+        bool hasPotion = false;
+        bool icanwin = false;
 
+<<<<<<< HEAD
         public bool HasPotion
         {
             get
@@ -71,28 +77,59 @@ namespace WizardAlgoritme
         }
 
         public Wizard(Cell position, GridManager gridManager)
+=======
+        public Cell Position
+>>>>>>> 3e7b83d4f6218bc2548cbe0d54f5a6d99850def0
         {
-            this.position = position;
+            get { return position; }
+            set { position = value; }
+        }
+
+        public Wizard(Cell startCell, GridManager gridManager)
+        {
+            this.position = startCell;
             this.gridManager = gridManager;
+<<<<<<< HEAD
             hasPotion = false;
             keys = 0;
+=======
+            this.actualPosition = startCell.Position;
+        }
+
+        public void Render(Graphics dc)
+        {
+            dc.FillRectangle(new SolidBrush(Color.White), position.BoundingRectangle);
+            dc.DrawRectangle(new Pen(Color.Black), position.BoundingRectangle);
+            dc.DrawImage(Image.FromFile(@"Images\wizard_idle.png"), position.BoundingRectangle);
+>>>>>>> 3e7b83d4f6218bc2548cbe0d54f5a6d99850def0
         }
 
         private Cell ShoppingList()
         {
-            //Returns 1,1 for now
-            foreach (Cell cell in gridManager.Grid)
+            foreach (Cell cell in gridManager.Goals)
             {
-                if (cell.Position == new Point(1, 1))
+                if (keycounter == 0)
                 {
-                    return cell;
+                    nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.KEY);
+                    return nextGoal;
+                }
+                else if (keycounter >= 1 && hasPotion == false)
+                {
+                    nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.STORM);
+                    return nextGoal;
+                }
+                else if (keycounter >= 1 && hasPotion == true)
+                {
+                    nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.ICE);
+                    return nextGoal;
+                }
+                else if (hasPotion == false && icanwin == true)
+                {
+                    nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.PORTAL);
+                    return nextGoal;
                 }
             }
-            return null; //If 1,1 doesnt exist
-
-            /*
-             This method should figure out what the priority target is, and return it.
-             */
+            return null; 
         }
 
         private Cell Astar(Cell goal)
@@ -136,35 +173,69 @@ namespace WizardAlgoritme
                     {
                         diff.Y *= -1;
                     }
-                    if (diff.X <= 1 && diff.Y <= 1) // if the cell is a actual neibourgh
+                    if (diff.X <= 1 && diff.Y <= 1)
                     {
                         if (cell.Walkable == false)
                         {
-                            #region Diagonal
-                            if (cell.Position == new Point(start.Position.X - 1, start.Position.Y - 1) || cell.Position == new Point(start.Position.X + 1, start.Position.Y + 1) || cell.Position == new Point(start.Position.X + 1, start.Position.Y - 1) || cell.Position == new Point(start.Position.X - 1, start.Position.Y + 1))
+                            if (cell.Position == new Point(start.Position.X - 1, start.Position.Y))
                             {
-                                //finds the neibourgs of the diagonal cell
-                                foreach (Cell cell2 in gridManager.Grid)
+                                foreach (Cell c in gridManager.Grid)
                                 {
-                                    Point diff2 = new Point(cell2.Position.X - cell.Position.X, cell2.Position.Y - cell.Position.Y); //diff
-                                    if (diff2.X < 0)
+                                    if (c.Position == new Point(start.Position.X - 1, start.Position.Y + 1))
                                     {
-                                        diff2.X *= -1;
+                                        falseNeibourghs.Add(c);
                                     }
-                                    if (diff2.Y < 0)
+                                    if (c.Position == new Point(start.Position.X - 1, start.Position.Y - 1))
                                     {
-                                        diff2.Y *= -1;
-                                    }
-                                    if (diff2.X <= 1 && diff2.Y <= 1) // if the cell is a actual neibourgh
-                                    {
-                                        falseNeibourghs.Add(cell2);
+                                        falseNeibourghs.Add(c);
                                     }
                                 }
                             }
-                            #endregion
+                            else if (cell.Position == new Point(start.Position.X + 1, start.Position.Y))
+                            {
+                                foreach (Cell c in gridManager.Grid)
+                                {
+                                    if (c.Position == new Point(start.Position.X + 1, start.Position.Y + 1))
+                                    {
+                                        falseNeibourghs.Add(c);
+                                    }
+                                    if (c.Position == new Point(start.Position.X + 1, start.Position.Y - 1))
+                                    {
+                                        falseNeibourghs.Add(c);
+                                    }
+                                }
+                            }
+                            else if (cell.Position == new Point(start.Position.X, start.Position.Y - 1))
+                            {
+                                foreach (Cell c in gridManager.Grid)
+                                {
+                                    if (c.Position == new Point(start.Position.X + 1, start.Position.Y - 1))
+                                    {
+                                        falseNeibourghs.Add(c);
+                                    }
+                                    if (c.Position == new Point(start.Position.X - 1, start.Position.Y - 1))
+                                    {
+                                        falseNeibourghs.Add(c);
+                                    }
+                                }
+                            }
+                            else if (cell.Position == new Point(start.Position.X, start.Position.Y + 1))
+                            {
+                                foreach (Cell c in gridManager.Grid)
+                                {
+                                    if (c.Position == new Point(start.Position.X + 1, start.Position.Y + 1))
+                                    {
+                                        falseNeibourghs.Add(c);
+                                    }
+                                    if (c.Position == new Point(start.Position.X - 1, start.Position.Y + 1))
+                                    {
+                                        falseNeibourghs.Add(c);
+                                    }
+                                }
+                            }
                         }
 
-                        if (!closedList.Contains(cell) && cell.Walkable == true)
+                        if (!closedList.Contains(cell) && cell.Walkable == true)// if the cell is a actual neibourgh
                         {
                             neibourghs.Add(cell);
                         }
@@ -222,20 +293,20 @@ namespace WizardAlgoritme
 
             //backtrack
             bool loopDone = false;
-            Cell c = goal.Parent;
+            Cell returnCell = goal.Parent;
 
             do
             {
-                if (c.Parent == start)
+                if (returnCell.Parent == start)
                 {
                     loopDone = true;
                 }
                 else
                 {
-                    c = c.Parent;
+                    returnCell = returnCell.Parent;
                 }
             } while (!loopDone);
-            return c;
+            return returnCell;
         }
 
         public Cell GetNextMove()

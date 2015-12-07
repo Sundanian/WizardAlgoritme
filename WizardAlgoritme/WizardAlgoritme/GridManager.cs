@@ -14,6 +14,21 @@ namespace WizardAlgoritme
         private Rectangle displayRectangle;
         private int cellRowCount;
         private List<Cell> grid;
+        private List<Cell> goals = new List<Cell>();
+        private Wizard wizard;
+
+        public Wizard Wizard
+        {
+            get { return wizard; }
+            set { wizard = value; }
+        }
+
+        public List<Cell> Goals
+        {
+            get { return goals; }
+            set { goals = value; }
+        }
+
 
         public List<Cell> Grid
         {
@@ -35,6 +50,10 @@ namespace WizardAlgoritme
         public void GameLoop()
         {
             Render();
+
+#if DEBUG
+            wizard.GetNextMove().Sprite = Image.FromFile(@"Images\test.png");
+#endif
         }
 
         private void Render()
@@ -45,6 +64,7 @@ namespace WizardAlgoritme
             {
                 cell.Render(dc);
             }
+            wizard.Render(dc);
 
             backBuffer.Render();
         }
@@ -68,6 +88,15 @@ namespace WizardAlgoritme
         {
             CreateGrid();
             SetUpCells();
+            Cell wStartCell = null;
+            foreach (Cell cell in grid)
+            {
+                if (cell.Position == new Point(1, 8))
+                {
+                    wStartCell = cell;
+                }
+            }
+            wizard = new Wizard(wStartCell, this);
         }
 
         private void SetUpCells()
@@ -78,18 +107,22 @@ namespace WizardAlgoritme
             portal.MyType = CellType.PORTAL;
             portal.Walkable = true;
             portal.Sprite = Image.FromFile(@"Images\Portal.png");
+            Goals.Add(portal);
 
             //Creates the ice tower
             Cell iceTower = grid.Find(node => node.Position.X == 2 && node.Position.Y == 4);
             iceTower.MyType = CellType.ICE;
             iceTower.Walkable = false;
             iceTower.Sprite = Image.FromFile(@"Images\Ice_Castle.png");
+            Goals.Add(iceTower);
+
 
             //Creates the storm tower
             Cell stormTower = grid.Find(node => node.Position.X == 8 && node.Position.Y == 7);
             stormTower.MyType = CellType.STORM;
             stormTower.Walkable = false;
             stormTower.Sprite = Image.FromFile(@"Images\Lighting_Castle.png");
+            Goals.Add(stormTower);
 
             //Creates the Rocks
             for (int x = 4; x < 7; x++)
@@ -116,7 +149,7 @@ namespace WizardAlgoritme
                     if (forestY == 7 || forestY == 9)
                     {
                         Cell forest = grid.Find(node => node.Position.X == forestX && node.Position.Y == forestY);
-                        
+
                         if (forest.MyType != CellType.FOREST)
                         {
                             forest.MyType = CellType.FOREST;
@@ -227,11 +260,12 @@ namespace WizardAlgoritme
             key.MyType = CellType.KEY;
             key.Walkable = true;
             key.Sprite = Image.FromFile(@"Images\Key.png");
+            Goals.Add(key);
 
             key2.MyType = CellType.KEY;
             key2.Walkable = true;
             key2.Sprite = Image.FromFile(@"Images\Key.png");
-
+            Goals.Add(key2);
         }
     }
 }

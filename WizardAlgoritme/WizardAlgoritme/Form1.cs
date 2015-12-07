@@ -31,5 +31,13 @@ namespace WizardAlgoritme
         {
             visualManager.GameLoop();
         }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Space)
+            {
+                visualManager.Wizard.Position = visualManager.Wizard.GetNextMove();
+            }
+        }
     }
 }
