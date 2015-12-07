@@ -116,7 +116,7 @@ namespace WizardAlgoritme
                     if (forestY == 7 || forestY == 9)
                     {
                         Cell forest = grid.Find(node => node.Position.X == forestX && node.Position.Y == forestY);
-                        forest.myType = CellType.FOREST;
+                        forest.MyType = CellType.FOREST;
                         forest.Walkable = false;
                         forest.Sprite = Image.FromFile(@"Images\Tree.png");
 
@@ -161,125 +161,125 @@ namespace WizardAlgoritme
             Cell p28 = grid.Find(node => node.Position.X == 3 && node.Position.Y == 8);
             Cell p29 = grid.Find(node => node.Position.X == 2 && node.Position.Y == 8);
 
-            p1.myType = CellType.PATH;
+            p1.MyType = CellType.PATH;
             p1.Walkable = true;
             p1.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p2.myType = CellType.PATH;
+            p2.MyType = CellType.PATH;
             p2.Walkable = true;
             p2.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p3.myType = CellType.PATH;
+            p3.MyType = CellType.PATH;
             p3.Walkable = true;
             p3.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p4.myType = CellType.PATH;
+            p4.MyType = CellType.PATH;
             p4.Walkable = true;
             p4.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p5.myType = CellType.PATH;
+            p5.MyType = CellType.PATH;
             p5.Walkable = true;
             p5.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p6.myType = CellType.PATH;
+            p6.MyType = CellType.PATH;
             p6.Walkable = true;
             p6.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p7.myType = CellType.PATH;
+            p7.MyType = CellType.PATH;
             p7.Walkable = true;
             p7.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p8.myType = CellType.PATH;
+            p8.MyType = CellType.PATH;
             p8.Walkable = true;
             p8.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p9.myType = CellType.PATH;
+            p9.MyType = CellType.PATH;
             p9.Walkable = true;
             p9.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p10.myType = CellType.PATH;
+            p10.MyType = CellType.PATH;
             p10.Walkable = true;
             p10.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p11.myType = CellType.PATH;
+            p11.MyType = CellType.PATH;
             p11.Walkable = true;
             p11.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p12.myType = CellType.PATH;
+            p12.MyType = CellType.PATH;
             p12.Walkable = true;
             p12.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p13.myType = CellType.PATH;
+            p13.MyType = CellType.PATH;
             p13.Walkable = true;
             p13.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p14.myType = CellType.PATH;
+            p14.MyType = CellType.PATH;
             p14.Walkable = true;
             p14.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p15.myType = CellType.PATH;
+            p15.MyType = CellType.PATH;
             p15.Walkable = true;
             p15.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p16.myType = CellType.PATH;
+            p16.MyType = CellType.PATH;
             p16.Walkable = true;
             p16.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p17.myType = CellType.PATH;
+            p17.MyType = CellType.PATH;
             p17.Walkable = true;
             p17.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p18.myType = CellType.PATH;
+            p18.MyType = CellType.PATH;
             p18.Walkable = true;
             p18.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p19.myType = CellType.PATH;
+            p19.MyType = CellType.PATH;
             p19.Walkable = true;
             p19.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p20.myType = CellType.PATH;
+            p20.MyType = CellType.PATH;
             p20.Walkable = true;
             p20.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p21.myType = CellType.PATH;
+            p21.MyType = CellType.PATH;
             p21.Walkable = true;
             p21.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p22.myType = CellType.PATH;
+            p22.MyType = CellType.PATH;
             p22.Walkable = true;
             p22.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p23.myType = CellType.PATH;
+            p23.MyType = CellType.PATH;
             p23.Walkable = true;
             p23.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p24.myType = CellType.PATH;
+            p24.MyType = CellType.PATH;
             p24.Walkable = true;
             p24.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p25.myType = CellType.PATH;
+            p25.MyType = CellType.PATH;
             p25.Walkable = true;
             p25.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p26.myType = CellType.PATH;
+            p26.MyType = CellType.PATH;
             p26.Walkable = true;
             p26.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p27.myType = CellType.PATH;
+            p27.MyType = CellType.PATH;
             p27.Walkable = true;
             p27.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p28.myType = CellType.PATH;
+            p28.MyType = CellType.PATH;
             p28.Walkable = true;
             p28.Sprite = Image.FromFile(@"Images\Path.png");
 
-            p29.myType = CellType.PATH;
+            p29.MyType = CellType.PATH;
             p29.Walkable = true;
             p29.Sprite = Image.FromFile(@"Images\Path.png");
 
             foreach (Cell item in grid)
             {
-                if (item.myType == CellType.EMPTY)
+                if (item.MyType == CellType.EMPTY)
                 {
                    item.Sprite = Image.FromFile(@"Images\Grass.png");
                 }
