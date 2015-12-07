@@ -44,8 +44,9 @@ namespace WizardAlgoritme
         public void GameLoop()
         {
             Render();
-
+#if DEBUG
             wizard.GetNextMove().Sprite = Image.FromFile(@"Images\test.png");
+#endif
         }
 
         private void Render()
