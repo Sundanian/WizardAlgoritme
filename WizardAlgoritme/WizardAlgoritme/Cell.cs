@@ -19,7 +19,6 @@ namespace WizardAlgoritme
         private int f;
         private Cell parent;
         private bool walkable;
-
         public bool Walkable
         {
             get { return walkable; }

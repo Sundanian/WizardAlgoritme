@@ -13,6 +13,10 @@ namespace WizardAlgoritme
         List<Cell> closedList;
         Cell position;
         GridManager gridManager;
+        int keycounter;
+        Cell nextGoal;
+        bool hasPotion = false;
+        bool icanwin = false;
 
         public Wizard(Cell position, GridManager gridManager)
         {
@@ -22,19 +26,30 @@ namespace WizardAlgoritme
 
         private Cell ShoppingList()
         {
-            //Returns 1,1 for now
-            foreach (Cell cell in gridManager.Grid)
+            foreach (Cell cell in gridManager.Goals)
             {
-                if (cell.Position == new Point(1, 1))
+                if (keycounter == 0)
                 {
-                    return cell;
+                    nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.KEY);
+                    return nextGoal;
+                }
+                else if (keycounter >= 1 && hasPotion == false)
+                {
+                    nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.STORM);
+                    return nextGoal;
+                }
+                else if (keycounter >= 1 && hasPotion == true)
+                {
+                    nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.ICE);
+                    return nextGoal;
+                }
+                else if (hasPotion == false && icanwin == true)
+                {
+                    nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.PORTAL);
+                    return nextGoal;
                 }
             }
-            return null; //If 1,1 doesnt exist
-
-            /*
-             This method should figure out what the priority target is, and return it.
-             */
+            return null; 
         }
 
         private Cell Astar(Cell goal)
