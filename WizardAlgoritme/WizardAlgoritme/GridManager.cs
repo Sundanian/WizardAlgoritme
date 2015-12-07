@@ -15,8 +15,15 @@ namespace WizardAlgoritme
         private int cellRowCount;
         private List<Cell> grid;
         private List<Cell> goals = new List<Cell>();
+        private Wizard wizard;
 
-        internal List<Cell> Goals
+        public Wizard Wizard
+        {
+            get { return wizard; }
+            set { wizard = value; }
+        }
+
+        public List<Cell> Goals
         {
             get { return goals; }
             set { goals = value; }
@@ -43,6 +50,10 @@ namespace WizardAlgoritme
         public void GameLoop()
         {
             Render();
+
+#if DEBUG
+            wizard.GetNextMove().Sprite = Image.FromFile(@"Images\test.png");
+#endif
         }
 
         private void Render()
@@ -53,6 +64,7 @@ namespace WizardAlgoritme
             {
                 cell.Render(dc);
             }
+            wizard.Render(dc);
 
             backBuffer.Render();
         }
@@ -76,6 +88,15 @@ namespace WizardAlgoritme
         {
             CreateGrid();
             SetUpCells();
+            Cell wStartCell = null;
+            foreach (Cell cell in grid)
+            {
+                if (cell.Position == new Point(1, 8))
+                {
+                    wStartCell = cell;
+                }
+            }
+            wizard = new Wizard(wStartCell, this);
         }
 
         private void SetUpCells()
