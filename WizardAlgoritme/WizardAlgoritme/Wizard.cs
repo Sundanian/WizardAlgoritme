@@ -9,15 +9,73 @@ namespace WizardAlgoritme
 {
     class Wizard
     {
+        private int keys; // Skal flyttes ind på Wizard
+        private bool hasPotion;
+        private bool canIWinNow;
+
         List<Cell> openList;
         List<Cell> closedList;
         Cell position;
         GridManager gridManager;
 
+        public bool HasPotion
+        {
+            get
+            {
+                return hasPotion;
+            }
+
+            set
+            {
+                hasPotion = value;
+            }
+        }
+
+        public int Key
+        {
+            get
+            {
+                return key;
+            }
+
+            set
+            {
+                key = value;
+            }
+        }
+
+        internal Cell Position
+        {
+            get
+            {
+                return position;
+            }
+
+            set
+            {
+                position = value;
+            }
+        }
+
+        public bool CanIWinNow
+        {
+            get
+            {
+                return canIWinNow;
+            }
+
+            set
+            {
+                canIWinNow = value;
+            }
+        }
+
         public Wizard(Cell position, GridManager gridManager)
         {
             this.position = position;
             this.gridManager = gridManager;
+            hasPotion = false;
+            keys = 0;
         }
 
         private Cell ShoppingList()

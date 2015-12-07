@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WizardAlgoritme
 {
-    enum CellType { EMPTY, PORTAL, STORM, ICE, FOREST, WALL, KEY, PATH }
+    enum CellType { EMPTY, PORTAL, STORM, ICE, FOREST, WALL, KEY, PATH, FORESTPATH }
     class Cell
     {
         private Point position;
@@ -19,6 +19,7 @@ namespace WizardAlgoritme
         private int f;
         private Cell parent;
         private bool walkable;
+        private bool visitied;
 
         public bool Walkable
         {
@@ -84,70 +85,122 @@ namespace WizardAlgoritme
             }
         }
 
+        public bool Visitied
+        {
+            get
+            {
+                return visitied;
+            }
+
+            set
+            {
+                visitied = value;
+            }
+        }
+
         public Cell(Point position, int size)
         {
             this.position = position;
             this.cellSize = size;
+            visitied = false;
         }
 
-        public void CellCheck(Point wizPos)
+        public void CellCheck(Wizard wiz)
         {
-            int key = 0; // Skal flyttes ind på Wizard
-            bool hasPotion = false;
-            if (wizPos == this.position)
+            if (wiz.Position.position == this.position)
             {
                 if (myType == CellType.PATH)
                 {
-                    this.Walkable = true;
+                    this.walkable = true;
                 }
 
                 if (myType == CellType.EMPTY)
                 {
-                    this.Walkable = true;
+                    this.walkable = true;
                 }
 
                 if (myType == CellType.WALL)
                 {
-                    this.Walkable = false;
+                    this.walkable = false;
                 }
 
-                if (myType == CellType.FOREST && this.Walkable == true)
+                if (myType == CellType.FOREST)
                 {
+                    this.walkable = false;
+                }
 
-                    this.Walkable = false;
+                if (myType == CellType.FORESTPATH)
+                {
+                    if (!this.visitied)
+                    {
+                        this.walkable = true;
+                    }
+                    else if(this.visitied)
+                    {
+                        this.walkable = false;
+                    }
+
+                    this.visitied = true;
                 }
 
                 if (myType == CellType.KEY)
                 {
-                    this.Walkable = true;
-                    key += 1;
+                    this.walkable = true;
+                    wiz.Key += 1;
                     this.myType = CellType.EMPTY;
                 }
 
                 if (myType == CellType.ICE || myType == CellType.STORM)
                 {
-                    if (key > 0)
+                    if (wiz.Key > 0)
                     {
                         if (myType == CellType.STORM)
                         {
-                            this.Walkable = true;
-                            hasPotion = true;
+                            this.walkable = true;
+                            wiz.HasPotion = true; // For at kunne f
                             Console.WriteLine("You now have a potion!"); //For fun and giggles
                         }
-                        if (myType == CellType.ICE && hasPotion == true)
+                        if (myType == CellType.ICE && wiz.HasPotion == true)
                         {
-                            this.Walkable = true;
-                            hasPotion = false;
+                            this.walkable = true;
+                            wiz.HasPotion = false;
+                            wiz.CanIWinNow = true; //Win condition
                             Console.WriteLine("You have delivered the potion!"); //For fun and giggles
                         }
-                        key -= 1;
-                        this.Walkable = false;
+                        wiz.Key -= 1;
+                        this.walkable = false;
                     }
                     else
                     {
                         this.walkable = false;
-                        Console.WriteLine("You need a key to enter!"); //For fun and giggles
+
+                        if (myType == CellType.STORM)
+                        {
+                            Console.WriteLine("You need a key to enter!"); //For fun and giggles
+                        }
+                        if (myType == CellType.ICE && wiz.HasPotion == false)
+                        {
+                            Console.WriteLine("You need a potion from the Storm Tower and a key to enter!"); //For fun and giggles
+                        }
                     }
+                }
+
+                if (myType == CellType.PORTAL)
+                {
+                    if (wiz.CanIWinNow)
+                    {
+                        this.walkable = true;
+                        Console.WriteLine("Win win!"); //For fun and giggles
+                    }
+                    else
+                    {
+                        this.walkable = false;
+                        Console.WriteLine("You shall not win yet!"); //For fun and giggles
+                    }
+                }
+                else
+                {
+                    this.walkable = false;
                 }
             }
         }
