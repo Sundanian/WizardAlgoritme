@@ -19,7 +19,6 @@ namespace WizardAlgoritme
         private int f;
         private Cell parent;
         private bool walkable;
-
         public bool Walkable
         {
             get { return walkable; }
@@ -91,6 +90,68 @@ namespace WizardAlgoritme
             parent = this;
         }
 
+        public void CellCheck(Point wizPos)
+        {
+            int key = 0; // Skal flyttes ind på Wizard
+            bool hasPotion = false;
+            if (wizPos == this.position)
+            {
+                if (myType == CellType.PATH)
+                {
+                    this.Walkable = true;
+                }
+
+                if (myType == CellType.EMPTY)
+                {
+                    this.Walkable = true;
+                }
+
+                if (myType == CellType.WALL)
+                {
+                    this.Walkable = false;
+                }
+
+                if (myType == CellType.FOREST && this.Walkable == true)
+                {
+
+                    this.Walkable = false;
+                }
+
+                if (myType == CellType.KEY)
+                {
+                    this.Walkable = true;
+                    key += 1;
+                    this.myType = CellType.EMPTY;
+                }
+
+                if (myType == CellType.ICE || myType == CellType.STORM)
+                {
+                    if (key > 0)
+                    {
+                        if (myType == CellType.STORM)
+                        {
+                            this.Walkable = true;
+                            hasPotion = true;
+                            Console.WriteLine("You now have a potion!"); //For fun and giggles
+                        }
+                        if (myType == CellType.ICE && hasPotion == true)
+                        {
+                            this.Walkable = true;
+                            hasPotion = false;
+                            Console.WriteLine("You have delivered the potion!"); //For fun and giggles
+                        }
+                        key -= 1;
+                        this.Walkable = false;
+                    }
+                    else
+                    {
+                        this.walkable = false;
+                        Console.WriteLine("You need a key to enter!"); //For fun and giggles
+                    }
+                }
+            }
+        }
+
         public void Render(Graphics dc)
         {
             dc.FillRectangle(new SolidBrush(Color.White), BoundingRectangle);
@@ -102,6 +163,8 @@ namespace WizardAlgoritme
 #if DEBUG
             dc.DrawString(string.Format("{0}", position), new Font("Arial", 7, FontStyle.Regular), new SolidBrush(Color.Black), position.X * cellSize, (position.Y * cellSize) + 10);
 #endif
+
+
         }
 
         public int GetFValue(List<Cell> grid, Cell goal)
