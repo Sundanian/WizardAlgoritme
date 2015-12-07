@@ -15,12 +15,23 @@ namespace WizardAlgoritme
         private int cellRowCount;
         private List<Cell> grid;
 
+<<<<<<< HEAD
         public List<Cell> Grid
         {
             get { return grid; }
             set { grid = value; }
         }
         
+=======
+        //private static Cell iceTower;
+        //private static Cell stormTower;
+        //private static Cell portal;
+        //private static Cell forest;
+        //private static Cell wall;
+        //private static Cell key;
+        //private static Cell path;
+
+>>>>>>> dbef4a60e04c3933393884f59a810e5a3fe4916b
         public GridManager(Graphics dc, Rectangle displayRectangle)
         {
             this.backBuffer = BufferedGraphicsManager.Current.Allocate(dc, displayRectangle);
