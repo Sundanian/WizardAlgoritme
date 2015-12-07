@@ -80,6 +80,7 @@ namespace WizardAlgoritme
                     if (diff.X <= 1 && diff.Y <= 1) // if the cell is a actual neibourgh
                     {
                         //MANGLER KODE TIL DIAGONAL GENNEM MUR
+                        
                         if (!closedList.Contains(cell) && cell.Walkable == true)
                         {
                             neibourghs.Add(cell);

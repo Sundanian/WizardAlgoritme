@@ -69,18 +69,18 @@ namespace WizardAlgoritme
             CreateGrid();
 
             Cell portal = grid.Find(node => node.Position.X == 0 && node.Position.Y == 8);
-            portal.myType = CellType.PORTAL;
+            portal.MyType = CellType.PORTAL;
             portal.Walkable = true;
             portal.Sprite = Image.FromFile(@"Images\test.png");
 
             Cell iceTower = grid.Find(node => node.Position.X == 2 && node.Position.Y == 4);
-            iceTower.myType = CellType.ICE;
+            iceTower.MyType = CellType.ICE;
             iceTower.Walkable = false;
             iceTower.Sprite = Image.FromFile(@"Images\test.png");
 
 
             Cell stormTower = grid.Find(node => node.Position.X == 8 && node.Position.Y == 7);
-            stormTower.myType = CellType.STORM;
+            stormTower.MyType = CellType.STORM;
             stormTower.Walkable = false;
             stormTower.Sprite = Image.FromFile(@"Images\test.png");
 
@@ -91,9 +91,9 @@ namespace WizardAlgoritme
                 {
                     Cell wall = grid.Find(node => node.Position.X == x && node.Position.Y == y);
 
-                    if (wall.myType != CellType.WALL)
+                    if (wall.MyType != CellType.WALL)
                     {
-                        wall.myType = CellType.WALL;
+                        wall.MyType = CellType.WALL;
                         wall.Walkable = false;
                         wall.Sprite = Image.FromFile(@"Images\test.png");
 
@@ -106,12 +106,12 @@ namespace WizardAlgoritme
 
             Cell key = grid[rndtal];
 
-            while (key.myType != CellType.EMPTY)
+            while (key.MyType != CellType.EMPTY)
             {
                 rndtal = rnd.Next(0, grid.Count);
             }
 
-            key.myType = CellType.KEY;
+            key.MyType = CellType.KEY;
             key.Walkable = true;
             key.Sprite = Image.FromFile(@"Images\test.png");
 
