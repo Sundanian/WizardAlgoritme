@@ -17,7 +17,7 @@ namespace WizardAlgoritme
         {
             InitializeComponent();
 
-            ClientSize = new Size(800, 800);
+            ClientSize = new Size(500, 500);
 
             visualManager = new GridManager(CreateGraphics(), this.DisplayRectangle);
         }
