@@ -19,6 +19,12 @@ namespace WizardAlgoritme
         bool hasPotion = false;
         bool icanwin = false;
 
+        public Cell Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
+
         public Wizard(Cell startCell, GridManager gridManager)
         {
             this.position = startCell;
