@@ -90,7 +90,7 @@ namespace WizardAlgoritme
             this.cellSize = size;
         }
 
-        public void Walk(Point wizPos)
+        public void CellCheck(Point wizPos)
         {
             int key = 0; // Skal flyttes ind på Wizard
 
