@@ -11,8 +11,16 @@ namespace WizardAlgoritme
     class Cell
     {
         private Point position;
+
+        public Point Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
+
         private int cellSize;
         private Image sprite;
+<<<<<<< HEAD
         private CellType myType = CellType.EMPTY;
         private int g = 0;
         private int h;
@@ -20,11 +28,24 @@ namespace WizardAlgoritme
         private Cell parent;
         private bool walkable;
 
+=======
+
+        public Image Sprite
+        {
+            get { return sprite; }
+            set { sprite = value; }
+        }
+        public CellType myType = CellType.EMPTY;
+
+        private bool walkable;
+
+>>>>>>> dbef4a60e04c3933393884f59a810e5a3fe4916b
         public bool Walkable
         {
             get { return walkable; }
             set { walkable = value; }
         }
+<<<<<<< HEAD
         public Point Position
         {
             get { return position; }
@@ -76,6 +97,9 @@ namespace WizardAlgoritme
                 h = value;
             }
         }
+=======
+
+>>>>>>> dbef4a60e04c3933393884f59a810e5a3fe4916b
         public Rectangle BoundingRectangle
         {
             get

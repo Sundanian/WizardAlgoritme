@@ -12,19 +12,15 @@ namespace WizardAlgoritme
         private BufferedGraphics backBuffer;
         private Graphics dc;
         private Rectangle displayRectangle;
-
         private int cellRowCount;
-
         private List<Cell> grid;
 
-        //private static Cell iceTower;
-        //private static Cell stormTower;
-        //private static Cell portal;
-        //private static Cell forest;
-        //private static Cell wall;
-        //private static Cell key;
-        //private static Cell path;
-
+        public List<Cell> Grid
+        {
+            get { return grid; }
+            set { grid = value; }
+        }
+        
         public GridManager(Graphics dc, Rectangle displayRectangle)
         {
             this.backBuffer = BufferedGraphicsManager.Current.Allocate(dc, displayRectangle);
@@ -79,19 +75,19 @@ namespace WizardAlgoritme
         {
             //Creates the portal
             Cell portal = grid.Find(node => node.Position.X == 0 && node.Position.Y == 8);
-            portal.myType = CellType.PORTAL;
+            portal.MyType = CellType.PORTAL;
             portal.Walkable = true;
             portal.Sprite = Image.FromFile(@"Images\Portal.png");
 
             //Creates the ice tower
             Cell iceTower = grid.Find(node => node.Position.X == 2 && node.Position.Y == 4);
-            iceTower.myType = CellType.ICE;
+            iceTower.MyType = CellType.ICE;
             iceTower.Walkable = false;
             iceTower.Sprite = Image.FromFile(@"Images\Ice_Castle.png");
 
             //Creates the storm tower
             Cell stormTower = grid.Find(node => node.Position.X == 8 && node.Position.Y == 7);
-            stormTower.myType = CellType.STORM;
+            stormTower.MyType = CellType.STORM;
             stormTower.Walkable = false;
             stormTower.Sprite = Image.FromFile(@"Images\Lighting_Castle.png");
 
@@ -102,9 +98,9 @@ namespace WizardAlgoritme
                 {
                     Cell wall = grid.Find(node => node.Position.X == x && node.Position.Y == y);
 
-                    if (wall.myType != CellType.WALL)
+                    if (wall.MyType != CellType.WALL)
                     {
-                        wall.myType = CellType.WALL;
+                        wall.MyType = CellType.WALL;
                         wall.Walkable = false;
                         wall.Sprite = Image.FromFile(@"Images\Rock.png");
 
@@ -293,13 +289,13 @@ namespace WizardAlgoritme
             int rndtal = rnd.Next(0, grid.Count);
             Cell key = grid[rndtal];
 
-            while (key.myType != CellType.EMPTY)
+            while (key.MyType != CellType.EMPTY)
             {
                 rndtal = rnd.Next(0, grid.Count);
                 key = grid[rndtal];
             }
 
-            key.myType = CellType.KEY;
+            key.MyType = CellType.KEY;
             key.Walkable = true;
             key.Sprite = Image.FromFile(@"Images\Key.png");
         }
