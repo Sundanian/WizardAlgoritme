@@ -12,11 +12,15 @@ namespace WizardAlgoritme
         private BufferedGraphics backBuffer;
         private Graphics dc;
         private Rectangle displayRectangle;
-
         private int cellRowCount;
-
         private List<Cell> grid;
 
+        public List<Cell> Grid
+        {
+            get { return grid; }
+            set { grid = value; }
+        }
+        
         public GridManager(Graphics dc, Rectangle displayRectangle)
         {
             this.backBuffer = BufferedGraphicsManager.Current.Allocate(dc, displayRectangle);
