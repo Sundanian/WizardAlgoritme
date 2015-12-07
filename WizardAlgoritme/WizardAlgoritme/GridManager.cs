@@ -29,7 +29,6 @@ namespace WizardAlgoritme
             set { goals = value; }
         }
 
-
         public List<Cell> Grid
         {
             get { return grid; }
@@ -50,6 +49,27 @@ namespace WizardAlgoritme
         public void GameLoop()
         {
             Render();
+
+            goals.Clear();
+            foreach (Cell cell in grid)
+            {
+                if (cell.MyType == CellType.PORTAL)
+                {
+                    goals.Add(cell);
+                }
+                else if (cell.MyType == CellType.ICE)
+                {
+                    goals.Add(cell);
+                }
+                else if (cell.MyType == CellType.STORM)
+                {
+                    goals.Add(cell);
+                }
+                else if (cell.MyType == CellType.KEY)
+                {
+                    goals.Add(cell);
+                }
+            }
 
 #if DEBUG
             wizard.GetNextMove().Sprite = Image.FromFile(@"Images\test.png");
@@ -107,14 +127,12 @@ namespace WizardAlgoritme
             portal.MyType = CellType.PORTAL;
             portal.Walkable = true;
             portal.Sprite = Image.FromFile(@"Images\Portal.png");
-            Goals.Add(portal);
 
             //Creates the ice tower
             Cell iceTower = grid.Find(node => node.Position.X == 2 && node.Position.Y == 4);
             iceTower.MyType = CellType.ICE;
             iceTower.Walkable = false;
             iceTower.Sprite = Image.FromFile(@"Images\Ice_Castle.png");
-            Goals.Add(iceTower);
 
 
             //Creates the storm tower
@@ -122,7 +140,6 @@ namespace WizardAlgoritme
             stormTower.MyType = CellType.STORM;
             stormTower.Walkable = false;
             stormTower.Sprite = Image.FromFile(@"Images\Lighting_Castle.png");
-            Goals.Add(stormTower);
 
             //Creates the Rocks
             for (int x = 4; x < 7; x++)
@@ -260,12 +277,10 @@ namespace WizardAlgoritme
             key.MyType = CellType.KEY;
             key.Walkable = true;
             key.Sprite = Image.FromFile(@"Images\Key.png");
-            Goals.Add(key);
 
             key2.MyType = CellType.KEY;
             key2.Walkable = true;
             key2.Sprite = Image.FromFile(@"Images\Key.png");
-            Goals.Add(key2);
         }
     }
 }

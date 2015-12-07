@@ -18,12 +18,8 @@ namespace WizardAlgoritme
         Cell position;
         Point actualPosition;
         GridManager gridManager;
-        int keycounter;
         Cell nextGoal;
-        bool hasPotion = false;
-        bool icanwin = false;
 
-<<<<<<< HEAD
         public bool HasPotion
         {
             get
@@ -37,29 +33,16 @@ namespace WizardAlgoritme
             }
         }
 
-        public int Key
+        public int Keys
         {
             get
             {
-                return key;
+                return keys;
             }
 
             set
             {
-                key = value;
-            }
-        }
-
-        internal Cell Position
-        {
-            get
-            {
-                return position;
-            }
-
-            set
-            {
-                position = value;
+                keys = value;
             }
         }
 
@@ -76,10 +59,7 @@ namespace WizardAlgoritme
             }
         }
 
-        public Wizard(Cell position, GridManager gridManager)
-=======
         public Cell Position
->>>>>>> 3e7b83d4f6218bc2548cbe0d54f5a6d99850def0
         {
             get { return position; }
             set { position = value; }
@@ -89,10 +69,8 @@ namespace WizardAlgoritme
         {
             this.position = startCell;
             this.gridManager = gridManager;
-<<<<<<< HEAD
             hasPotion = false;
             keys = 0;
-=======
             this.actualPosition = startCell.Position;
         }
 
@@ -101,29 +79,28 @@ namespace WizardAlgoritme
             dc.FillRectangle(new SolidBrush(Color.White), position.BoundingRectangle);
             dc.DrawRectangle(new Pen(Color.Black), position.BoundingRectangle);
             dc.DrawImage(Image.FromFile(@"Images\wizard_idle.png"), position.BoundingRectangle);
->>>>>>> 3e7b83d4f6218bc2548cbe0d54f5a6d99850def0
         }
 
         private Cell ShoppingList()
         {
             foreach (Cell cell in gridManager.Goals)
             {
-                if (keycounter == 0)
+                if (keys == 0)
                 {
                     nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.KEY);
                     return nextGoal;
                 }
-                else if (keycounter >= 1 && hasPotion == false)
+                else if (keys >= 1 && hasPotion == false)
                 {
                     nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.STORM);
                     return nextGoal;
                 }
-                else if (keycounter >= 1 && hasPotion == true)
+                else if (keys >= 1 && hasPotion == true)
                 {
                     nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.ICE);
                     return nextGoal;
                 }
-                else if (hasPotion == false && icanwin == true)
+                else if (hasPotion == false && canIWinNow == true)
                 {
                     nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.PORTAL);
                     return nextGoal;
@@ -293,7 +270,7 @@ namespace WizardAlgoritme
 
             //backtrack
             bool loopDone = false;
-            Cell returnCell = goal.Parent;
+            Cell returnCell = goal;
 
             do
             {
@@ -311,7 +288,8 @@ namespace WizardAlgoritme
 
         public Cell GetNextMove()
         {
-            return Astar(ShoppingList());
+            Cell returnCell = Astar(ShoppingList());
+            return returnCell;
         }
     }
 }
