@@ -25,7 +25,7 @@ namespace WizardAlgoritme
             //Returns 1,1 for now
             foreach (Cell cell in gridManager.Grid)
             {
-                if (cell.Position == new Point(1,1))
+                if (cell.Position == new Point(1, 1))
                 {
                     return cell;
                 }
@@ -66,6 +66,7 @@ namespace WizardAlgoritme
 
                 //finds the neibourghs
                 List<Cell> neibourghs = new List<Cell>();
+                List<Cell> falseNeibourghs = new List<Cell>();
                 foreach (Cell cell in gridManager.Grid)
                 {
                     Point diff = new Point(cell.Position.X - chosenCell.Position.X, cell.Position.Y - chosenCell.Position.Y); //diff
@@ -79,12 +80,43 @@ namespace WizardAlgoritme
                     }
                     if (diff.X <= 1 && diff.Y <= 1) // if the cell is a actual neibourgh
                     {
-                        //MANGLER KODE TIL DIAGONAL GENNEM MUR
-                        
+                        if (cell.Walkable == false)
+                        {
+                            #region Diagonal
+                            if (cell.Position == new Point(start.Position.X - 1, start.Position.Y - 1) || cell.Position == new Point(start.Position.X + 1, start.Position.Y + 1) || cell.Position == new Point(start.Position.X + 1, start.Position.Y - 1) || cell.Position == new Point(start.Position.X - 1, start.Position.Y + 1))
+                            {
+                                //finds the neibourgs of the diagonal cell
+                                foreach (Cell cell2 in gridManager.Grid)
+                                {
+                                    Point diff2 = new Point(cell2.Position.X - cell.Position.X, cell2.Position.Y - cell.Position.Y); //diff
+                                    if (diff2.X < 0)
+                                    {
+                                        diff2.X *= -1;
+                                    }
+                                    if (diff2.Y < 0)
+                                    {
+                                        diff2.Y *= -1;
+                                    }
+                                    if (diff2.X <= 1 && diff2.Y <= 1) // if the cell is a actual neibourgh
+                                    {
+                                        falseNeibourghs.Add(cell2);
+                                    }
+                                }
+                            }
+                            #endregion
+                        }
+
                         if (!closedList.Contains(cell) && cell.Walkable == true)
                         {
                             neibourghs.Add(cell);
                         }
+                    }
+                }
+                foreach (Cell cell in falseNeibourghs) //Removes all diagonally unaccessable neibourghs
+                {
+                    if (neibourghs.Contains(cell))
+                    {
+                        neibourghs.Remove(cell);
                     }
                 }
 
