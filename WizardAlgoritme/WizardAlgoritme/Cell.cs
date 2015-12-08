@@ -19,11 +19,8 @@ namespace WizardAlgoritme
         private int f;
         private Cell parent;
         private bool walkable;
-<<<<<<< HEAD
         private bool visitied;
 
-=======
->>>>>>> 3e7b83d4f6218bc2548cbe0d54f5a6d99850def0
         public bool Walkable
         {
             get { return walkable; }
@@ -105,11 +102,8 @@ namespace WizardAlgoritme
         {
             this.position = position;
             this.cellSize = size;
-<<<<<<< HEAD
             visitied = false;
-=======
             parent = this;
->>>>>>> 3e7b83d4f6218bc2548cbe0d54f5a6d99850def0
         }
 
         public void CellCheck(Wizard wiz)
@@ -153,13 +147,13 @@ namespace WizardAlgoritme
                 if (myType == CellType.KEY)
                 {
                     this.walkable = true;
-                    wiz.Key += 1;
+                    wiz.Keys += 1;
                     this.myType = CellType.EMPTY;
                 }
 
                 if (myType == CellType.ICE || myType == CellType.STORM)
                 {
-                    if (wiz.Key > 0)
+                    if (wiz.Keys > 0)
                     {
                         if (myType == CellType.STORM)
                         {
@@ -174,7 +168,7 @@ namespace WizardAlgoritme
                             wiz.CanIWinNow = true; //Win condition
                             Console.WriteLine("You have delivered the potion!"); //For fun and giggles
                         }
-                        wiz.Key -= 1;
+                        wiz.Keys -= 1;
                         this.walkable = false;
                     }
                     else
@@ -204,10 +198,6 @@ namespace WizardAlgoritme
                         this.walkable = false;
                         Console.WriteLine("You shall not win yet!"); //For fun and giggles
                     }
-                }
-                else
-                {
-                    this.walkable = false;
                 }
             }
         }

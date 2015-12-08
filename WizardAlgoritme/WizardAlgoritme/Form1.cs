@@ -37,6 +37,7 @@ namespace WizardAlgoritme
             if (e.KeyCode == Keys.Space)
             {
                 visualManager.Wizard.Position = visualManager.Wizard.GetNextMove();
+                visualManager.Wizard.Position.CellCheck(visualManager.Wizard);
             }
         }
     }
