@@ -123,6 +123,7 @@ namespace WizardAlgoritme
         private void SetUpCells()
         {
             List<Cell> emptylist = new List<Cell>();
+            
             //Creates the portal
             Cell portal = grid.Find(node => node.Position.X == 0 && node.Position.Y == 8);
             portal.MyType = CellType.PORTAL;
