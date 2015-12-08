@@ -69,10 +69,15 @@ namespace WizardAlgoritme
                 {
                     goals.Add(cell);
                 }
-                else if (cell.MyType == CellType.KEY)
+                else if (cell.MyType == CellType.STORMKEY)
                 {
                     goals.Add(cell);
                 }
+                else if (cell.MyType == CellType.ICEKEY)
+                {
+                    goals.Add(cell);
+                }
+
             }
         }
 
@@ -279,13 +284,13 @@ namespace WizardAlgoritme
             Cell key = emptylist[rndtal];
             Cell key2 = emptylist[rndtal2];
 
-            key.MyType = CellType.KEY;
+            key.MyType = CellType.STORMKEY;
             key.Walkable = true;
             key.Sprite = Image.FromFile(@"Images\Key.png");
 
-            key2.MyType = CellType.KEY;
+            key2.MyType = CellType.ICEKEY;
             key2.Walkable = true;
-            key2.Sprite = Image.FromFile(@"Images\Key.png");
+            key2.Sprite = Image.FromFile(@"Images\Key2.png");
         }
     }
 }
