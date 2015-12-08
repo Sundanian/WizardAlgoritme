@@ -51,6 +51,11 @@ namespace WizardAlgoritme
         {
             Render();
 
+            foreach (Cell cell in grid)
+            {
+                cell.CellCheck(wizard);
+            }
+
             goals.Clear();
 
             foreach (Cell cell in grid)
@@ -72,10 +77,6 @@ namespace WizardAlgoritme
                     goals.Add(cell);
                 }
             }
-
-#if DEBUG
-            wizard.GetNextMove().Sprite = Image.FromFile(@"Images\test.png");
-#endif
         }
 
         private void Render()

@@ -106,7 +106,7 @@ namespace WizardAlgoritme
                     return nextGoal;
                 }
             }
-            return null; 
+            return null;
         }
 
         private Cell Astar(Cell goal)

@@ -108,96 +108,93 @@ namespace WizardAlgoritme
 
         public void CellCheck(Wizard wiz)
         {
-            if (wiz.Position.position == this.position)
+            if (myType == CellType.PATH)
             {
-                if (myType == CellType.PATH)
+                this.walkable = true;
+            }
+
+            if (myType == CellType.EMPTY)
+            {
+                this.walkable = true;
+            }
+
+            if (myType == CellType.WALL)
+            {
+                this.walkable = false;
+            }
+
+            if (myType == CellType.FOREST)
+            {
+                this.walkable = false;
+            }
+
+            if (myType == CellType.FORESTPATH)
+            {
+                if (!this.visitied)
                 {
                     this.walkable = true;
                 }
-
-                if (myType == CellType.EMPTY)
-                {
-                    this.walkable = true;
-                }
-
-                if (myType == CellType.WALL)
+                else if (this.visitied)
                 {
                     this.walkable = false;
                 }
-
-                if (myType == CellType.FOREST)
+                if (wiz.Position == this)
                 {
-                    this.walkable = false;
-                }
-
-                if (myType == CellType.FORESTPATH)
-                {
-                    if (!this.visitied)
-                    {
-                        this.walkable = true;
-                    }
-                    else if(this.visitied)
-                    {
-                        this.walkable = false;
-                    }
-
                     this.visitied = true;
                 }
+            }
 
-                if (myType == CellType.KEY)
+            if (myType == CellType.KEY)
+            {
+                this.walkable = true;
+                if (wiz.Position == this)
                 {
-                    this.walkable = true;
                     wiz.Keys += 1;
                     this.myType = CellType.EMPTY;
                 }
+            }
 
-                if (myType == CellType.ICE || myType == CellType.STORM)
+            if (myType == CellType.ICE || myType == CellType.STORM)
+            {
+                if (wiz.Keys > 0)
                 {
-                    if (wiz.Keys > 0)
-                    {
-                        if (myType == CellType.STORM)
-                        {
-                            this.walkable = true;
-                            wiz.HasPotion = true; // For at kunne f
-                            Console.WriteLine("You now have a potion!"); //For fun and giggles
-                        }
-                        if (myType == CellType.ICE && wiz.HasPotion == true)
-                        {
-                            this.walkable = true;
-                            wiz.HasPotion = false;
-                            wiz.CanIWinNow = true; //Win condition
-                            Console.WriteLine("You have delivered the potion!"); //For fun and giggles
-                        }
-                        wiz.Keys -= 1;
-                        this.walkable = false;
-                    }
-                    else
-                    {
-                        this.walkable = false;
-
-                        if (myType == CellType.STORM)
-                        {
-                            Console.WriteLine("You need a key to enter!"); //For fun and giggles
-                        }
-                        if (myType == CellType.ICE && wiz.HasPotion == false)
-                        {
-                            Console.WriteLine("You need a potion from the Storm Tower and a key to enter!"); //For fun and giggles
-                        }
-                    }
-                }
-
-                if (myType == CellType.PORTAL)
-                {
-                    if (wiz.CanIWinNow)
+                    if (myType == CellType.STORM)
                     {
                         this.walkable = true;
-                        Console.WriteLine("Win win!"); //For fun and giggles
+                        if (wiz.Position == this)
+                        {
+                            wiz.HasPotion = true; // For at kunne f 
+                        }
                     }
-                    else
+                    if (myType == CellType.ICE && wiz.HasPotion == true)
                     {
-                        this.walkable = false;
-                        Console.WriteLine("You shall not win yet!"); //For fun and giggles
+                        this.walkable = true;
+                        if (wiz.Position == this)
+                        {
+                            wiz.HasPotion = false;
+                            wiz.CanIWinNow = true; //Win condition
+                        }
                     }
+                    if (wiz.Position == this)
+                    {
+                        wiz.Keys -= 1;
+                    }
+                }
+                else
+                {
+                    this.walkable = false;
+                }
+            }
+
+            if (myType == CellType.PORTAL)
+            {
+                if (wiz.CanIWinNow)
+                {
+                    this.walkable = true;
+                }
+                else
+                {
+                    this.walkable = false;
                 }
             }
         }
