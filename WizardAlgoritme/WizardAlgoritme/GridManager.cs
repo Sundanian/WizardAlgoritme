@@ -16,6 +16,7 @@ namespace WizardAlgoritme
         private List<Cell> grid;
         private List<Cell> goals = new List<Cell>();
         private Wizard wizard;
+        Cell wStartCell = null;
 
         public Wizard Wizard
         {
@@ -51,6 +52,7 @@ namespace WizardAlgoritme
             Render();
 
             goals.Clear();
+
             foreach (Cell cell in grid)
             {
                 if (cell.MyType == CellType.PORTAL)
@@ -108,15 +110,6 @@ namespace WizardAlgoritme
         {
             CreateGrid();
             SetUpCells();
-            Cell wStartCell = null;
-            foreach (Cell cell in grid)
-            {
-                if (cell.Position == new Point(1, 8))
-                {
-                    wStartCell = cell;
-                }
-            }
-            wizard = new Wizard(wStartCell, this);
         }
 
         private void SetUpCells()
@@ -130,14 +123,14 @@ namespace WizardAlgoritme
             portal.Sprite = Image.FromFile(@"Images\Portal.png");
 
             //Creates the ice tower
-            Cell iceTower = grid.Find(node => node.Position.X == 2 && node.Position.Y == 4);
+            Cell iceTower = grid.Find(node => node.Position.X == 8 && node.Position.Y == 7);
             iceTower.MyType = CellType.ICE;
             iceTower.Walkable = false;
             iceTower.Sprite = Image.FromFile(@"Images\Ice_Castle.png");
 
 
             //Creates the storm tower
-            Cell stormTower = grid.Find(node => node.Position.X == 8 && node.Position.Y == 7);
+            Cell stormTower = grid.Find(node => node.Position.X == 2 && node.Position.Y == 4);
             stormTower.MyType = CellType.STORM;
             stormTower.Walkable = false;
             stormTower.Sprite = Image.FromFile(@"Images\Lighting_Castle.png");
@@ -173,7 +166,6 @@ namespace WizardAlgoritme
                             forest.MyType = CellType.FOREST;
                             forest.Walkable = false;
                             forest.Sprite = Image.FromFile(@"Images\Tree.png");
-
                         }
 
                     }
@@ -181,6 +173,7 @@ namespace WizardAlgoritme
             }
 
             //Creates the path
+            #region Path
             Cell p1 = grid.Find(node => node.Position.X == 1 && node.Position.Y == 8);
             Cell p2 = grid.Find(node => node.Position.X == 1 && node.Position.Y == 7);
             Cell p3 = grid.Find(node => node.Position.X == 1 && node.Position.Y == 6);
@@ -240,13 +233,14 @@ namespace WizardAlgoritme
             p21.MyType = CellType.PATH;
             p22.MyType = CellType.PATH;
             p23.MyType = CellType.PATH;
-            p24.MyType = CellType.PATH;
-            p25.MyType = CellType.PATH;
-            p26.MyType = CellType.PATH;
-            p27.MyType = CellType.PATH;
-            p28.MyType = CellType.PATH;
-            p29.MyType = CellType.PATH;
 
+            p24.MyType = CellType.PATH;
+            p25.MyType = CellType.FORESTPATH;
+            p26.MyType = CellType.FORESTPATH;
+            p27.MyType = CellType.FORESTPATH;
+            p28.MyType = CellType.FORESTPATH;
+            p29.MyType = CellType.FORESTPATH;
+            #endregion
 
             //Finds the empty celltypes and gives them images, and adds them to a list so we can place the keys
             //and adds an image to the path types
@@ -263,8 +257,20 @@ namespace WizardAlgoritme
                     item.Walkable = true;
                     item.Sprite = Image.FromFile(@"Images\Path.png");
                 }
+                if (item.MyType == CellType.FORESTPATH)
+                {
+                    item.Walkable = true;
+                    item.Sprite = Image.FromFile(@"Images\DarkDirt.jpg");
+                }
+                if (item.Position == new Point(1, 8))
+                {
+                    wStartCell = item;
+                }
+
 
             }
+            //Creates the Wizard
+            wizard = new Wizard(wStartCell, this);
 
             //Creates the keys
             Random rnd = new Random();
@@ -272,8 +278,8 @@ namespace WizardAlgoritme
             int rndtal = rnd.Next(0, emptylist.Count);
             int rndtal2 = rnd.Next(0, emptylist.Count);
 
-            Cell key = grid[rndtal];
-            Cell key2 = grid[rndtal2];
+            Cell key = emptylist[rndtal];
+            Cell key2 = emptylist[rndtal2];
 
             key.MyType = CellType.KEY;
             key.Walkable = true;
