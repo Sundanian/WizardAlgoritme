@@ -26,7 +26,9 @@ namespace WizardAlgoritme
         }
         private bool hasPotion;
         private bool canIWinNow;
+        private int moveCount = 0;
 
+        List<Cell> returnCellList;
         List<Cell> openList;
         List<Cell> closedList;
         Cell position;
@@ -127,8 +129,9 @@ namespace WizardAlgoritme
             return null;
         }
 
-        private Cell Astar(Cell goal)
+        private List<Cell> Astar(Cell goal)
         {
+            List<Cell> returnCellList = new List<Cell>();
             openList = new List<Cell>();
             closedList = new List<Cell>();
 
@@ -294,20 +297,27 @@ namespace WizardAlgoritme
             {
                 if (returnCell.Parent == start)
                 {
+                    returnCellList.Add(returnCell);
                     loopDone = true;
                 }
                 else
                 {
+                    returnCellList.Add(returnCell);
                     returnCell = returnCell.Parent;
                 }
             } while (!loopDone);
-            return returnCell;
+            return returnCellList;
         }
 
         public Cell GetNextMove()
         {
-             Cell returnCell = Astar(ShoppingList());
-            return returnCell;
+            if (moveCount == 0)
+            {
+                returnCellList = Astar(ShoppingList());
+                moveCount = returnCellList.Count;
+            }
+            moveCount--;
+            return returnCellList[moveCount];
         }
     }
 }
