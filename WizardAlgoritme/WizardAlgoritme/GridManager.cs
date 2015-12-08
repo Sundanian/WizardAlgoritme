@@ -50,6 +50,11 @@ namespace WizardAlgoritme
         {
             Render();
 
+            foreach (Cell cell in grid)
+            {
+                cell.CellCheck(wizard);
+            }
+
             goals.Clear();
             foreach (Cell cell in grid)
             {
@@ -70,10 +75,6 @@ namespace WizardAlgoritme
                     goals.Add(cell);
                 }
             }
-
-#if DEBUG
-            wizard.GetNextMove().Sprite = Image.FromFile(@"Images\test.png");
-#endif
         }
 
         private void Render()
@@ -129,14 +130,14 @@ namespace WizardAlgoritme
             portal.Sprite = Image.FromFile(@"Images\Portal.png");
 
             //Creates the ice tower
-            Cell iceTower = grid.Find(node => node.Position.X == 2 && node.Position.Y == 4);
+            Cell iceTower = grid.Find(node => node.Position.X == 8 && node.Position.Y == 7);
             iceTower.MyType = CellType.ICE;
             iceTower.Walkable = false;
             iceTower.Sprite = Image.FromFile(@"Images\Ice_Castle.png");
 
 
             //Creates the storm tower
-            Cell stormTower = grid.Find(node => node.Position.X == 8 && node.Position.Y == 7);
+            Cell stormTower = grid.Find(node => node.Position.X == 2 && node.Position.Y == 4);
             stormTower.MyType = CellType.STORM;
             stormTower.Walkable = false;
             stormTower.Sprite = Image.FromFile(@"Images\Lighting_Castle.png");
