@@ -141,6 +141,7 @@ namespace WizardAlgoritme
                 if (wiz.Position == this)
                 {
                     this.visitied = true;
+                    this.Sprite = Image.FromFile(@"Images\Monster.png");
                 }
             }
 
