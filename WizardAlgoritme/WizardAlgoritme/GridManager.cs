@@ -166,7 +166,7 @@ namespace WizardAlgoritme
                         {
                             forest.MyType = CellType.FOREST;
                             forest.Walkable = false;
-                            forest.Sprite = Image.FromFile(@"Images\Tree.png");
+                            forest.Sprite = Image.FromFile(@"Images\ForestPath.png");
                         }
 
                     }
