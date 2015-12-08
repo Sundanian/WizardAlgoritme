@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WizardAlgoritme
 {
-    enum CellType { EMPTY, PORTAL, STORM, ICE, FOREST, WALL, KEY, PATH, FORESTPATH }
+    enum CellType { EMPTY, PORTAL, STORM, ICE, FOREST, WALL, STORMKEY, ICEKEY, PATH, FORESTPATH }
     class Cell
     {
         private Point position;
@@ -144,48 +144,53 @@ namespace WizardAlgoritme
                 }
             }
 
-            if (myType == CellType.KEY)
+            if (myType == CellType.STORMKEY || myType == CellType.ICEKEY)
             {
                 this.walkable = true;
                 if (wiz.Position == this)
                 {
-                    wiz.Keys += 1;
-                    this.myType = CellType.EMPTY;
-                    this.Sprite = Image.FromFile(@"Images\Grass.png");
+                    if (myType == CellType.STORMKEY)
+                    {
+                        wiz.Stormkey = true;
+                        this.myType = CellType.EMPTY;
+                        this.Sprite = Image.FromFile(@"Images\Grass.png");
+                    }
+                    else if (MyType == CellType.ICEKEY)
+                    {
+                        wiz.Icekey = true;
+                        this.myType = CellType.EMPTY;
+                        this.Sprite = Image.FromFile(@"Images\Grass.png");
+                    }
                 }
             }
 
+
+
             if (myType == CellType.ICE || myType == CellType.STORM)
             {
-                if (wiz.Keys > 0)
+                if (myType == CellType.STORM)
                 {
-                    if (myType == CellType.STORM)
-                    {
-                        this.walkable = true;
-                        if (wiz.Position == this)
-                        {
-                            wiz.HasPotion = true; // For at kunne f 
-                        }
-                    }
-                    if (myType == CellType.ICE && wiz.HasPotion == true)
-                    {
-                        this.walkable = true;
-                        if (wiz.Position == this)
-                        {
-                            wiz.HasPotion = false;
-                            wiz.CanIWinNow = true; //Win condition
-                        }
-                    }
+                    this.walkable = true;
                     if (wiz.Position == this)
                     {
-                        wiz.Keys -= 1;
+                        wiz.HasPotion = true; // For at kunne f 
                     }
                 }
-                else
+                if (myType == CellType.ICE && wiz.HasPotion == true)
                 {
-                    this.walkable = false;
+                    this.walkable = true;
+                    if (wiz.Position == this)
+                    {
+                        wiz.HasPotion = false;
+                        wiz.CanIWinNow = true; //Win condition
+                    }
                 }
             }
+            else
+            {
+                this.walkable = false;
+            }
+
 
             if (myType == CellType.PORTAL)
             {
