@@ -151,6 +151,7 @@ namespace WizardAlgoritme
                 {
                     wiz.Keys += 1;
                     this.myType = CellType.EMPTY;
+                    this.Sprite = Image.FromFile(@"Images\Grass.png");
                 }
             }
 
