@@ -106,9 +106,6 @@
     <Content Include="Images\Monster.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\Monster2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Images\Path.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
