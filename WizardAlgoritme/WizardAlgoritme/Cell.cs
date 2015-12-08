@@ -168,27 +168,32 @@ namespace WizardAlgoritme
 
             if (myType == CellType.ICE || myType == CellType.STORM)
             {
-                if (myType == CellType.STORM)
+                if (wiz.Stormkey == true || wiz.Icekey == true)
                 {
-                    this.walkable = true;
-                    if (wiz.Position == this)
+                    if (myType == CellType.STORM && wiz.Stormkey)
                     {
-                        wiz.HasPotion = true; // For at kunne f 
+                        this.walkable = true;
+                        if (wiz.Position == this)
+                        {
+                            wiz.HasPotion = true; // For at kunne f 
+                        }
                     }
+                    if (myType == CellType.ICE && wiz.HasPotion == true && wiz.Icekey)
+                    {
+                        this.walkable = true;
+                        if (wiz.Position == this)
+                        {
+                            wiz.HasPotion = false;
+                            wiz.CanIWinNow = true; //Win condition
+                        }
+                    }
+
                 }
-                if (myType == CellType.ICE && wiz.HasPotion == true)
+                else
                 {
-                    this.walkable = true;
-                    if (wiz.Position == this)
-                    {
-                        wiz.HasPotion = false;
-                        wiz.CanIWinNow = true; //Win condition
-                    }
+                    this.walkable = false;
                 }
-            }
-            else
-            {
-                this.walkable = false;
+
             }
 
 

@@ -131,7 +131,6 @@ namespace WizardAlgoritme
             iceTower.Walkable = false;
             iceTower.Sprite = Image.FromFile(@"Images\Ice_Castle.png");
 
-
             //Creates the storm tower
             Cell stormTower = grid.Find(node => node.Position.X == 2 && node.Position.Y == 4);
             stormTower.MyType = CellType.STORM;
@@ -150,7 +149,6 @@ namespace WizardAlgoritme
                         wall.MyType = CellType.WALL;
                         wall.Walkable = false;
                         wall.Sprite = Image.FromFile(@"Images\Rock.png");
-
                     }
                 }
             }
