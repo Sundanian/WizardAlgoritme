@@ -9,7 +9,21 @@ namespace WizardAlgoritme
 {
     class Wizard
     {
-        private int keys; // Skal flyttes ind på Wizard
+        //private int keys; // Skal flyttes ind på Wizard
+        private bool stormkey = false;
+
+        public bool Stormkey
+        {
+            get { return stormkey; }
+            set { stormkey = value; }
+        }
+        private bool icekey = false;
+
+        public bool Icekey
+        {
+            get { return icekey; }
+            set { icekey = value; }
+        }
         private bool hasPotion;
         private bool canIWinNow;
 
@@ -33,18 +47,18 @@ namespace WizardAlgoritme
             }
         }
 
-        public int Keys
-        {
-            get
-            {
-                return keys;
-            }
+        ////public int Keys
+        //{
+        //    get
+        //    {
+        //        return keys;
+        //    }
 
-            set
-            {
-                keys = value;
-            }
-        }
+        //    set
+        //    {
+        //        keys = value;
+        //    }
+        //}
 
         public bool CanIWinNow
         {
@@ -70,7 +84,6 @@ namespace WizardAlgoritme
             this.position = startCell;
             this.gridManager = gridManager;
             hasPotion = false;
-            keys = 0;
             this.actualPosition = startCell.Position;
         }
 
@@ -85,17 +98,22 @@ namespace WizardAlgoritme
         {
             foreach (Cell cell in gridManager.Goals)
             {
-                if (keys == 0 && canIWinNow == false)
+                if (stormkey == false && canIWinNow == false)
                 {
-                    nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.KEY);
+                    nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.STORMKEY);
                     return nextGoal;
                 }
-                else if (keys >= 1 && hasPotion == false)
+                else if (icekey == false && canIWinNow == false)
+                {
+                    nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.ICEKEY);
+                    return nextGoal;
+                }
+                else if (stormkey == true && hasPotion == false)
                 {
                     nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.STORM);
                     return nextGoal;
                 }
-                else  if (keys >= 1 && hasPotion == true)
+                else  if (icekey == true && hasPotion == true)
                 {
                     nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.ICE);
                     return nextGoal;
