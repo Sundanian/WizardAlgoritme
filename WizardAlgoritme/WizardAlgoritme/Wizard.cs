@@ -105,17 +105,17 @@ namespace WizardAlgoritme
                     nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.STORMKEY);
                     return nextGoal;
                 }
-                else if (icekey == false && canIWinNow == false)
-                {
-                    nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.ICEKEY);
-                    return nextGoal;
-                }
-                else if (stormkey == true && hasPotion == false)
+                else if (stormkey == true && hasPotion == false && !canIWinNow)
                 {
                     nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.STORM);
                     return nextGoal;
                 }
-                else  if (icekey == true && hasPotion == true)
+                else if (icekey == false && hasPotion == true && canIWinNow == false)
+                {
+                    nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.ICEKEY);
+                    return nextGoal;
+                }
+                else  if (icekey == true && hasPotion == true && !canIWinNow)
                 {
                     nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.ICE);
                     return nextGoal;
