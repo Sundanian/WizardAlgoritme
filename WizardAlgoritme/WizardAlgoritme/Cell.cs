@@ -23,6 +23,11 @@ namespace WizardAlgoritme
         private bool visitied;
         private List<Cell> neibourghs;
 
+        public List<Cell> Neibourghs
+        {
+            get { return neibourghs; }
+            set { neibourghs = value; }
+        }
         public bool Walkable
         {
             get { return walkable; }

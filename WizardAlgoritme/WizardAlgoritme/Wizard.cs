@@ -11,19 +11,7 @@ namespace WizardAlgoritme
     {
         //private int keys; // Skal flyttes ind på Wizard
         private bool stormkey = false;
-
-        public bool Stormkey
-        {
-            get { return stormkey; }
-            set { stormkey = value; }
-        }
         private bool icekey = false;
-
-        public bool Icekey
-        {
-            get { return icekey; }
-            set { icekey = value; }
-        }
         private bool hasPotion;
         private bool canIWinNow;
         private int moveCount = 0;
@@ -48,20 +36,6 @@ namespace WizardAlgoritme
                 hasPotion = value;
             }
         }
-
-        ////public int Keys
-        //{
-        //    get
-        //    {
-        //        return keys;
-        //    }
-
-        //    set
-        //    {
-        //        keys = value;
-        //    }
-        //}
-
         public bool CanIWinNow
         {
             get
@@ -74,11 +48,20 @@ namespace WizardAlgoritme
                 canIWinNow = value;
             }
         }
-
         public Cell Position
         {
             get { return position; }
             set { position = value; }
+        }
+        public bool Stormkey
+        {
+            get { return stormkey; }
+            set { stormkey = value; }
+        }
+        public bool Icekey
+        {
+            get { return icekey; }
+            set { icekey = value; }
         }
 
         public Wizard(Cell startCell, GridManager gridManager)
@@ -157,129 +140,91 @@ namespace WizardAlgoritme
                 closedList.Add(chosenCell);
                 openList.Remove(chosenCell);
 
-                //finds the neibourghs
-                List<Cell> neibourghs = new List<Cell>();
+                //finds the false neibourghs
                 List<Cell> falseNeibourghs = new List<Cell>();
-                foreach (Cell cell in gridManager.Grid)
+                foreach (Cell n in chosenCell.Neibourghs)
                 {
-                    Point diff = new Point(cell.Position.X - chosenCell.Position.X, cell.Position.Y - chosenCell.Position.Y); //diff
-                    if (diff.X < 0)
+                    if (!n.Walkable)
                     {
-                        diff.X *= -1;
-                    }
-                    if (diff.Y < 0)
-                    {
-                        diff.Y *= -1;
-                    }
-                    if (diff.X <= 1 && diff.Y <= 1)
-                    {
-                        //if (cell.Walkable == false)
-                        //{
-                        //    if (cell.Position == new Point(start.Position.X - 1, start.Position.Y))
-                        //    {
-                        //        foreach (Cell c in gridManager.Grid)
-                        //        {
-                        //            if (c.Position == new Point(start.Position.X - 1, start.Position.Y + 1))
-                        //            {
-                        //                falseNeibourghs.Add(c);
-                        //            }
-                        //            if (c.Position == new Point(start.Position.X - 1, start.Position.Y - 1))
-                        //            {
-                        //                falseNeibourghs.Add(c);
-                        //            }
-                        //        }
-                        //    }
-                        //    else if (cell.Position == new Point(start.Position.X + 1, start.Position.Y))
-                        //    {
-                        //        foreach (Cell c in gridManager.Grid)
-                        //        {
-                        //            if (c.Position == new Point(start.Position.X + 1, start.Position.Y + 1))
-                        //            {
-                        //                falseNeibourghs.Add(c);
-                        //            }
-                        //            if (c.Position == new Point(start.Position.X + 1, start.Position.Y - 1))
-                        //            {
-                        //                falseNeibourghs.Add(c);
-                        //            }
-                        //        }
-                        //    }
-                        //    else if (cell.Position == new Point(start.Position.X, start.Position.Y - 1))
-                        //    {
-                        //        foreach (Cell c in gridManager.Grid)
-                        //        {
-                        //            if (c.Position == new Point(start.Position.X + 1, start.Position.Y - 1))
-                        //            {
-                        //                falseNeibourghs.Add(c);
-                        //            }
-                        //            if (c.Position == new Point(start.Position.X - 1, start.Position.Y - 1))
-                        //            {
-                        //                falseNeibourghs.Add(c);
-                        //            }
-                        //        }
-                        //    }
-                        //    else if (cell.Position == new Point(start.Position.X, start.Position.Y + 1))
-                        //    {
-                        //        foreach (Cell c in gridManager.Grid)
-                        //        {
-                        //            if (c.Position == new Point(start.Position.X + 1, start.Position.Y + 1))
-                        //            {
-                        //                falseNeibourghs.Add(c);
-                        //            }
-                        //            if (c.Position == new Point(start.Position.X - 1, start.Position.Y + 1))
-                        //            {
-                        //                falseNeibourghs.Add(c);
-                        //            }
-                        //        }
-                        //    }
-                        //}
-
-                        if (!closedList.Contains(cell) && cell.Walkable == true)// if the cell is a actual neibourgh
+                        if (n.Position == new Point(chosenCell.Position.X - 1, chosenCell.Position.Y))
                         {
-                            neibourghs.Add(cell);
+                            foreach (Cell diaN in chosenCell.Neibourghs)
+                            {
+                                if (diaN.Position == new Point(chosenCell.Position.X - 1, chosenCell.Position.Y - 1) || diaN.Position == new Point(chosenCell.Position.X - 1, chosenCell.Position.Y + 1))
+                                {
+                                    falseNeibourghs.Add(diaN);
+                                }
+                            }
                         }
-                    }
-                }
-                foreach (Cell cell in falseNeibourghs) //Removes all diagonally unaccessable neibourghs
-                {
-                    if (neibourghs.Contains(cell))
-                    {
-                        neibourghs.Remove(cell);
+                        if (n.Position == new Point(chosenCell.Position.X + 1, chosenCell.Position.Y))
+                        {
+                            foreach (Cell diaN in chosenCell.Neibourghs)
+                            {
+                                if (diaN.Position == new Point(chosenCell.Position.X + 1, chosenCell.Position.Y - 1) || diaN.Position == new Point(chosenCell.Position.X + 1, chosenCell.Position.Y + 1))
+                                {
+                                    falseNeibourghs.Add(diaN);
+                                }
+                            }
+                        }
+                        if (n.Position == new Point(chosenCell.Position.X, chosenCell.Position.Y - 1))
+                        {
+                            foreach (Cell diaN in chosenCell.Neibourghs)
+                            {
+                                if (diaN.Position == new Point(chosenCell.Position.X - 1, chosenCell.Position.Y - 1) || diaN.Position == new Point(chosenCell.Position.X + 1, chosenCell.Position.Y - 1))
+                                {
+                                    falseNeibourghs.Add(diaN);
+                                }
+                            }
+                        }
+                        if (n.Position == new Point(chosenCell.Position.X, chosenCell.Position.Y + 1))
+                        {
+                            foreach (Cell diaN in chosenCell.Neibourghs)
+                            {
+                                if (diaN.Position == new Point(chosenCell.Position.X + 1, chosenCell.Position.Y + 1) || diaN.Position == new Point(chosenCell.Position.X - 1, chosenCell.Position.Y + 1))
+                                {
+                                    falseNeibourghs.Add(diaN);
+                                }
+                            }
+                        }
                     }
                 }
 
                 //adds the neibourghs, calculates f/g/h and adds parent
-                foreach (Cell n in neibourghs)
+                foreach (Cell n in chosenCell.Neibourghs)
                 {
-                    if (!openList.Contains(n))
+                    if (!chosenCell.Neibourghs.Contains(n)) //Sorts out the false/unreacable neibourghs
                     {
-                        openList.Add(n);
-                        n.Parent = chosenCell;
-                    }
-                    else
-                    {
-                        //calculates the relative position to the chosenCell
-                        int cost;
-                        Point diff = new Point(n.Position.X - chosenCell.Position.X, n.Position.Y - chosenCell.Position.Y); //diff
-                        if (diff.X == 1 && diff.Y == 1 || diff.X == -1 && diff.Y == 1 || diff.X == 1 && diff.Y == -1 || diff.X == -1 && diff.Y == -1) //Diagonal
+                        if (!openList.Contains(n))
                         {
-                            cost = 14;
-                        }
-                        else if (diff.X == 0 && diff.Y == 0)
-                        {
-                            cost = 0;
+                            openList.Add(n);
+                            n.Parent = chosenCell;
                         }
                         else
                         {
-                            cost = 10;
-                        }
+                            //calculates the relative position to the chosenCell
+                            int cost;
+                            Point diff = new Point(n.Position.X - chosenCell.Position.X, n.Position.Y - chosenCell.Position.Y); //diff
+                            if (diff.X == 1 && diff.Y == 1 || diff.X == -1 && diff.Y == 1 || diff.X == 1 && diff.Y == -1 || diff.X == -1 && diff.Y == -1) //Diagonal
+                            {
+                                cost = 14;
+                            }
+                            else if (diff.X == 0 && diff.Y == 0)
+                            {
+                                cost = 0;
+                            }
+                            else
+                            {
+                                cost = 10;
+                            }
 
-                        //checks if chosenCell is a better parent than the old one
-                        if (n.G > chosenCell.G + cost)
-                        {
-                            n.Parent = chosenCell;
+                            //checks if chosenCell is a better parent than the old one
+                            if (n.G > chosenCell.G + cost)
+                            {
+                                n.Parent = chosenCell;
+                            }
                         }
+                        n.GetFValue(gridManager.Grid, goal);
                     }
-                    n.GetFValue(gridManager.Grid, goal);
                 }
 
                 //ends loop if we have arrived at the goal
@@ -325,21 +270,14 @@ namespace WizardAlgoritme
                 {
                     foundGoal = true;
                 }
-                for (int x = -1; x <= 1; x++)
+                foreach (Cell n in cell.Neibourghs)
                 {
-                    for (int y = -1; y <= 1; y++)
+                    if (!(n.Visitied))
                     {
-                        if (!(y == 0 && x == 0 || (x == -1 && y == -1) || (x == -1 && y == 1) || (x == 1 && y == -1) || (x == 1 && y == 1)))
+                        queue.Enqueue(n);
+                        if (n.Parent == null)
                         {
-                            Cell n = gridManager.Grid.Find(c => c.Position.X == start.Position.X - x && c.Position.Y == start.Position.Y - y);
-                            if (!(n.Visitied))
-                            {
-                                queue.Enqueue(n);
-                                if (n.Parent == null)
-                                {
-                                    n.Parent = cell;
-                                }
-                            }
+                            n.Parent = cell;
                         }
                     }
                 }
@@ -358,10 +296,47 @@ namespace WizardAlgoritme
             return null;
         }
 
-        //private List<Cell> DFS(Cell goal)
-        //{
+        private List<Cell> DFS(Cell goal)
+        {
+            bool foundGoal = false;
+            Stack<Cell> stack = new Stack<Cell>();
+            Cell start = position;
+            start.Parent = start;
+            stack.Push(start);
 
-        //}
+            do
+            {
+                Cell cell = stack.Pop();
+                cell.Visitied = true;
+                if (cell == goal)
+                {
+                    foundGoal = true;
+                }
+                foreach (Cell n in cell.Neibourghs)
+                {
+                    if (!(n.Visitied))
+                    {
+                        stack.Push(n);
+                        if (n.Parent == null)
+                        {
+                            n.Parent = cell;
+                        }
+                    }
+                }
+                if (foundGoal)
+                {
+                    List<Cell> path = new List<Cell>();
+                    path.Add(cell);
+                    do
+                    {
+                        cell = cell.Parent;
+                        path.Add(cell);
+                    } while (cell.Parent != cell);
+                    return path;
+                }
+            } while (!foundGoal);
+            return null;
+        }
 
         public Cell GetNextMove()
         {

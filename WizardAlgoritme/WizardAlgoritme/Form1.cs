@@ -13,6 +13,7 @@ namespace WizardAlgoritme
     public partial class Form1 : Form
     {
         private GridManager visualManager;
+
         public Form1()
         {
             InitializeComponent();
