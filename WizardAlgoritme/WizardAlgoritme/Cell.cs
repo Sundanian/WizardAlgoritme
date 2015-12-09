@@ -250,15 +250,7 @@ namespace WizardAlgoritme
                 g = Parent.G + 10;
             }
             //h
-            diff = new Point(goal.Position.X - position.X, goal.Position.Y - position.Y);
-            if (diff.X < 0)
-            {
-                diff.X *= -1;
-            }
-            if (diff.Y < 0)
-            {
-                diff.Y *= -1;
-            }
+            diff = new Point(Math.Abs(goal.Position.X - position.X), Math.Abs(goal.Position.Y - position.Y));
             h = (diff.X + diff.Y) * 10;
             //f
             f = g + h;

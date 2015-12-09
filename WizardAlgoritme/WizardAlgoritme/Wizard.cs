@@ -235,19 +235,20 @@ namespace WizardAlgoritme
                 //adds the neibourghs, calculates f/g/h and adds parent
                 foreach (Cell n in chosenCell.Neibourghs)
                 {
-                    if (!falseNeibourghs.Contains(n)) //Sorts out the false/unreacable neibourghs
+                    if (!falseNeibourghs.Contains(n) && n.Walkable) //Sorts out the false/unreacable neibourghs
                     {
-                        if (!closedList.Contains(n) && n.Walkable)
+                        if (!closedList.Contains(n))
                         {
                             openList.Add(n);
                             n.Parent = chosenCell;
                         }
-                        else
+
                         {
                             //calculates the relative position to the chosenCell
                             int cost;
                             Point diff = new Point(n.Position.X - chosenCell.Position.X, n.Position.Y - chosenCell.Position.Y); //diff
-                            if (diff.X == 1 && diff.Y == 1 || diff.X == -1 && diff.Y == 1 || diff.X == 1 && diff.Y == -1 || diff.X == -1 && diff.Y == -1) //Diagonal
+
+                            if (Math.Abs(diff.X) == 1 && Math.Abs(diff.Y) == 1)
                             {
                                 cost = 14;
                             }
@@ -259,7 +260,6 @@ namespace WizardAlgoritme
                             {
                                 cost = 10;
                             }
-
                             //checks if chosenCell is a better parent than the old one
                             if (n.G > chosenCell.G + cost)
                             {
@@ -397,6 +397,16 @@ namespace WizardAlgoritme
                 if (algorithm == 1)
                 {
                     returnCellList = Astar(ShoppingList());
+
+                    //Cell cell = null;
+                    //foreach (Cell c in gridManager.Grid)
+                    //{
+                    //    if (c.Position == new Point(2,2))
+                    //    {
+                    //        cell = c;
+                    //    }
+                    //}
+                    //returnCellList = Astar(cell);
                 }
                 if (algorithm == 2)
                 {
