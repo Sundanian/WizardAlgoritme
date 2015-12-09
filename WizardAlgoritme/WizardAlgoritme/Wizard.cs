@@ -115,7 +115,7 @@ namespace WizardAlgoritme
                     nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.ICEKEY);
                     return nextGoal;
                 }
-                else  if (icekey == true && hasPotion == true && !canIWinNow)
+                else if (icekey == true && hasPotion == true && !canIWinNow)
                 {
                     nextGoal = gridManager.Goals.Find(node => node.MyType == CellType.ICE);
                     return nextGoal;
@@ -308,6 +308,60 @@ namespace WizardAlgoritme
             } while (!loopDone);
             return returnCellList;
         }
+
+        private List<Cell> BFS(Cell goal)
+        {
+            bool foundGoal = false;
+            Queue<Cell> queue = new Queue<Cell>();
+            Cell start = position;
+            start.Parent = start;
+            queue.Enqueue(start);
+
+            do
+            {
+                Cell cell = queue.Dequeue();
+                cell.Visitied = true;
+                if (cell == goal)
+                {
+                    foundGoal = true;
+                }
+                for (int x = -1; x <= 1; x++)
+                {
+                    for (int y = -1; y <= 1; y++)
+                    {
+                        if (!(y == 0 && x == 0 || (x == -1 && y == -1) || (x == -1 && y == 1) || (x == 1 && y == -1) || (x == 1 && y == 1)))
+                        {
+                            Cell n = gridManager.Grid.Find(c => c.Position.X == start.Position.X - x && c.Position.Y == start.Position.Y - y);
+                            if (!(n.Visitied))
+                            {
+                                queue.Enqueue(n);
+                                if (n.Parent == null)
+                                {
+                                    n.Parent = cell;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (foundGoal)
+                {
+                    List<Cell> path = new List<Cell>();
+                    path.Add(cell);
+                    do
+                    {
+                        cell = cell.Parent;
+                        path.Add(cell);
+                    } while (cell.Parent != cell);
+                    return path;
+                }
+            } while (!foundGoal);
+            return null;
+        }
+
+        //private List<Cell> DFS(Cell goal)
+        //{
+
+        //}
 
         public Cell GetNextMove()
         {
