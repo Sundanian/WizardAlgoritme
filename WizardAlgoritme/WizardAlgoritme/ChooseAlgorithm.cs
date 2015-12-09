@@ -38,5 +38,10 @@ namespace WizardAlgoritme
             game = new Form1(3);
             game.Show();
         }
+
+        private void ChooseAlgorithm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -396,15 +396,15 @@ namespace WizardAlgoritme
 
                 if (algorithm == 1)
                 {
-                    returnCellList = DFS(ShoppingList());
+                    returnCellList = Astar(ShoppingList());
                 }
                 if (algorithm == 2)
                 {
-                    returnCellList = BFS(ShoppingList());
+                    returnCellList = DFS(ShoppingList());
                 }
                 if (algorithm == 3)
                 {
-                    returnCellList = Astar(ShoppingList());
+                    returnCellList = BFS(ShoppingList());
                 }
 
 
