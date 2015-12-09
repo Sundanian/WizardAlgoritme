@@ -20,6 +20,7 @@ namespace WizardAlgoritme
         private Cell parent;
         private bool walkable;
         private bool visitied;
+        private List<Cell> neibourghs;
 
         public bool Walkable
         {
@@ -84,7 +85,6 @@ namespace WizardAlgoritme
                 return new Rectangle(position.X * cellSize, position.Y * cellSize, cellSize, cellSize);
             }
         }
-
         public bool Visitied
         {
             get
@@ -104,6 +104,14 @@ namespace WizardAlgoritme
             this.cellSize = size;
             visitied = false;
             parent = this;
+
+            neibourghs = new List<Cell>();
+            FindNeibourghs();
+        }
+
+        private void FindNeibourghs()
+        {
+
         }
 
         public void CellCheck(Wizard wiz)
