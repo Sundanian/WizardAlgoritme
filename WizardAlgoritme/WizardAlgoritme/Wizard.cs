@@ -325,21 +325,14 @@ namespace WizardAlgoritme
                 {
                     foundGoal = true;
                 }
-                for (int x = -1; x <= 1; x++)
+                foreach (Cell n in cell.Neibourghs)
                 {
-                    for (int y = -1; y <= 1; y++)
+                    if (!(n.Visitied))
                     {
-                        if (!(y == 0 && x == 0 || (x == -1 && y == -1) || (x == -1 && y == 1) || (x == 1 && y == -1) || (x == 1 && y == 1)))
+                        queue.Enqueue(n);
+                        if (n.Parent == null)
                         {
-                            Cell n = gridManager.Grid.Find(c => c.Position.X == start.Position.X - x && c.Position.Y == start.Position.Y - y);
-                            if (!(n.Visitied))
-                            {
-                                queue.Enqueue(n);
-                                if (n.Parent == null)
-                                {
-                                    n.Parent = cell;
-                                }
-                            }
+                            n.Parent = cell;
                         }
                     }
                 }
@@ -358,10 +351,47 @@ namespace WizardAlgoritme
             return null;
         }
 
-        //private List<Cell> DFS(Cell goal)
-        //{
+        private List<Cell> DFS(Cell goal)
+        {
+            bool foundGoal = false;
+            Stack<Cell> stack = new Stack<Cell>();
+            Cell start = position;
+            start.Parent = start;
+            stack.Push(start);
 
-        //}
+            do
+            {
+                Cell cell = stack.Pop();
+                cell.Visitied = true;
+                if (cell == goal)
+                {
+                    foundGoal = true;
+                }
+                foreach (Cell n in cell.Neibourghs)
+                {
+                    if (!(n.Visitied))
+                    {
+                        stack.Push(n);
+                        if (n.Parent == null)
+                        {
+                            n.Parent = cell;
+                        }
+                    }
+                }
+                if (foundGoal)
+                {
+                    List<Cell> path = new List<Cell>();
+                    path.Add(cell);
+                    do
+                    {
+                        cell = cell.Parent;
+                        path.Add(cell);
+                    } while (cell.Parent != cell);
+                    return path;
+                }
+            } while (!foundGoal);
+            return null;
+        }
 
         public Cell GetNextMove()
         {
