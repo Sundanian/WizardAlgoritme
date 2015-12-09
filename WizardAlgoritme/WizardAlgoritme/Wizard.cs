@@ -161,6 +161,49 @@ namespace WizardAlgoritme
                 List<Cell> falseNeibourghs = new List<Cell>();
                 foreach (Cell n in chosenCell.Neibourghs)
                 {
+                    if (!n.Walkable)
+                    {
+                        if (n.Position == new Point(chosenCell.Position.X - 1, chosenCell.Position.Y))
+                        {
+                            foreach (Cell diaN in chosenCell.Neibourghs)
+                            {
+                                if (diaN.Position == new Point(chosenCell.Position.X - 1, chosenCell.Position.Y - 1) || diaN.Position == new Point(chosenCell.Position.X - 1, chosenCell.Position.Y + 1))
+                                {
+                                    falseNeibourghs.Add(diaN);
+                                }
+                            }
+                        }
+                        if (n.Position == new Point(chosenCell.Position.X + 1, chosenCell.Position.Y))
+                        {
+                            foreach (Cell diaN in chosenCell.Neibourghs)
+                            {
+                                if (diaN.Position == new Point(chosenCell.Position.X + 1, chosenCell.Position.Y - 1) || diaN.Position == new Point(chosenCell.Position.X + 1, chosenCell.Position.Y + 1))
+                                {
+                                    falseNeibourghs.Add(diaN);
+                                }
+                            }
+                        }
+                        if (n.Position == new Point(chosenCell.Position.X, chosenCell.Position.Y - 1))
+                        {
+                            foreach (Cell diaN in chosenCell.Neibourghs)
+                            {
+                                if (diaN.Position == new Point(chosenCell.Position.X - 1, chosenCell.Position.Y - 1) || diaN.Position == new Point(chosenCell.Position.X + 1, chosenCell.Position.Y - 1))
+                                {
+                                    falseNeibourghs.Add(diaN);
+                                }
+                            }
+                        }
+                        if (n.Position == new Point(chosenCell.Position.X, chosenCell.Position.Y + 1))
+                        {
+                            foreach (Cell diaN in chosenCell.Neibourghs)
+                            {
+                                if (diaN.Position == new Point(chosenCell.Position.X + 1, chosenCell.Position.Y + 1) || diaN.Position == new Point(chosenCell.Position.X - 1, chosenCell.Position.Y + 1))
+                                {
+                                    falseNeibourghs.Add(diaN);
+                                }
+                            }
+                        }
+                    }
                     //if (cell.Walkable == false)
                     //{
                     //    if (cell.Position == new Point(start.Position.X - 1, start.Position.Y))
