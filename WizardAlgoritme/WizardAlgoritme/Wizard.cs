@@ -192,9 +192,9 @@ namespace WizardAlgoritme
                 //adds the neibourghs, calculates f/g/h and adds parent
                 foreach (Cell n in chosenCell.Neibourghs)
                 {
-                    if (!chosenCell.Neibourghs.Contains(n)) //Sorts out the false/unreacable neibourghs
+                    if (!falseNeibourghs.Contains(n)) //Sorts out the false/unreacable neibourghs
                     {
-                        if (!openList.Contains(n))
+                        if (!closedList.Contains(n) && n.Walkable)
                         {
                             openList.Add(n);
                             n.Parent = chosenCell;
@@ -272,10 +272,10 @@ namespace WizardAlgoritme
                 }
                 foreach (Cell n in cell.Neibourghs)
                 {
-                    if (!(n.Visitied))
+                    if (!(n.Visitied) && n.Walkable == true)
                     {
                         queue.Enqueue(n);
-                        if (n.Parent == null)
+                        if (n.Parent == n.Parent)
                         {
                             n.Parent = cell;
                         }
@@ -314,10 +314,10 @@ namespace WizardAlgoritme
                 }
                 foreach (Cell n in cell.Neibourghs)
                 {
-                    if (!(n.Visitied))
+                    if (!(n.Visitied) && n.Walkable == true)
                     {
                         stack.Push(n);
-                        if (n.Parent == null)
+                        if (n.Parent == n.Parent)
                         {
                             n.Parent = cell;
                         }
@@ -342,7 +342,15 @@ namespace WizardAlgoritme
         {
             if (moveCount == 0)
             {
-                returnCellList = Astar(ShoppingList());
+                foreach (Cell cell in gridManager.Grid)
+                {
+                    cell.Parent = cell;
+                    if (cell.MyType != CellType.FORESTPATH)
+                    {
+                        cell.Visitied = false;
+                    }
+                }
+                returnCellList = DFS(ShoppingList());
                 moveCount = returnCellList.Count;
             }
             moveCount--;

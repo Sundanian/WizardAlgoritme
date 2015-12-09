@@ -9,11 +9,11 @@ namespace WizardAlgoritme
 {
     class GridManager
     {
-        private Cell cl = null;
+        private int cellRowCount;
+
         private BufferedGraphics backBuffer;
         private Graphics dc;
         private Rectangle displayRectangle;
-        private int cellRowCount;
         private List<Cell> grid;
         private List<Cell> goals = new List<Cell>();
         private Wizard wizard;
@@ -34,7 +34,6 @@ namespace WizardAlgoritme
             get { return grid; }
             set { grid = value; }
         }
-
         public int CellRowCount
         {
             get
@@ -146,7 +145,6 @@ namespace WizardAlgoritme
                         if (grid.Exists(b => b == gridtest))
                         {
                             Cell n = grid.Find(c => c.Position.X == centerCell.Position.X - x && c.Position.Y == centerCell.Position.Y - y);
-                            n.Parent = centerCell;
                             centerCell.Neibourghs.Add(n);
                         }
                     }
