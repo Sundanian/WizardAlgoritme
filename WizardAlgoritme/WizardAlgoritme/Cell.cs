@@ -10,6 +10,7 @@ namespace WizardAlgoritme
     enum CellType { EMPTY, PORTAL, STORM, ICE, FOREST, WALL, STORMKEY, ICEKEY, PATH, FORESTPATH }
     class Cell
     {
+        private GridManager gm;
         private Point position;
         private int cellSize;
         private Image sprite;
@@ -98,6 +99,19 @@ namespace WizardAlgoritme
             }
         }
 
+        internal List<Cell> Neibourghs
+        {
+            get
+            {
+                return neibourghs;
+            }
+
+            set
+            {
+                neibourghs = value;
+            }
+        }
+
         public Cell(Point position, int size)
         {
             this.position = position;
@@ -106,13 +120,35 @@ namespace WizardAlgoritme
             parent = this;
 
             neibourghs = new List<Cell>();
-            FindNeibourghs();
         }
 
-        private void FindNeibourghs()
-        {
+        //public void FindNeibourghs(Cell centerCell)
+        //{
+        //    for (int x = -1; x <= 1; x++)
+        //    {
+        //        for (int y = -1; y <= 1; y++)
+        //        {
+        //            if (!(y == 0 && x == 0))
+        //            {
+        //                Cell gridtest = gm.Grid.Find(node => node.Position.X == centerCell.Position.X - x && node.Position.X >= 0 && node.Position.Y == centerCell.Position.Y - y && node.Position.Y >= 0
+        //                && node.Position.X <= gm.CellRowCount && node.Position.Y <= gm.CellRowCount);
 
-        }
+        //                if (gm.Grid.Exists(b => b == gridtest))
+        //                {
+        //                    Cell n = gm.Grid.Find(c => c.Position.X == centerCell.Position.X - x && c.Position.Y == centerCell.Position.Y - y);
+        //                    if (!(n.Visitied))
+        //                    {
+        //                        if (n.Parent == null)
+        //                        {
+        //                            n.Parent = centerCell;
+        //                            neibourghs.Add(n);
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
         public void CellCheck(Wizard wiz)
         {

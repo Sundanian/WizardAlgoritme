@@ -9,6 +9,7 @@ namespace WizardAlgoritme
 {
     class GridManager
     {
+        private Cell cl = null;
         private BufferedGraphics backBuffer;
         private Graphics dc;
         private Rectangle displayRectangle;
@@ -34,6 +35,19 @@ namespace WizardAlgoritme
         {
             get { return grid; }
             set { grid = value; }
+        }
+
+        public int CellRowCount
+        {
+            get
+            {
+                return cellRowCount;
+            }
+
+            set
+            {
+                cellRowCount = value;
+            }
         }
 
         public GridManager(Graphics dc, Rectangle displayRectangle)
@@ -113,6 +127,33 @@ namespace WizardAlgoritme
         {
             CreateGrid();
             SetUpCells();
+
+            foreach (Cell item in grid)
+            {
+                FindNeibourghs(item);
+            }
+        }
+
+        public void FindNeibourghs(Cell centerCell)
+        {
+            for (int x = -1; x <= 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    if (!(y == 0 && x == 0))
+                    {
+                        Cell gridtest = grid.Find(node => node.Position.X == centerCell.Position.X - x && node.Position.X >= 0 && node.Position.Y == centerCell.Position.Y - y && node.Position.Y >= 0
+                        && node.Position.X <= cellRowCount && node.Position.Y <= cellRowCount);
+
+                        if (grid.Exists(b => b == gridtest))
+                        {
+                            Cell n = grid.Find(c => c.Position.X == centerCell.Position.X - x && c.Position.Y == centerCell.Position.Y - y);
+                            n.Parent = centerCell;
+                            centerCell.Neibourghs.Add(n);
+                        }
+                    }
+                }
+            }
         }
 
         private void SetUpCells()
