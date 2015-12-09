@@ -139,13 +139,30 @@ namespace WizardAlgoritme
                 {
                     if (!(y == 0 && x == 0))
                     {
-                        Cell gridtest = grid.Find(node => node.Position.X == centerCell.Position.X - x && node.Position.X >= 0 && node.Position.Y == centerCell.Position.Y - y && node.Position.Y >= 0
-                        && node.Position.X <= cellRowCount && node.Position.Y <= cellRowCount);
-
-                        if (grid.Exists(b => b == gridtest))
+                        if (!wizard.AStarBool)
                         {
-                            Cell n = grid.Find(c => c.Position.X == centerCell.Position.X - x && c.Position.Y == centerCell.Position.Y - y);
-                            centerCell.Neibourghs.Add(n);
+                            if (!(x == -1 && y == -1) || (x == -1 && y == 1) || (x == 1 && y == -1) || (x == 1 && y == 1))
+                            {
+                                Cell gridtest = grid.Find(node => node.Position.X == centerCell.Position.X - x && node.Position.X >= 0 && node.Position.Y == centerCell.Position.Y - y && node.Position.Y >= 0
+                                && node.Position.X <= cellRowCount && node.Position.Y <= cellRowCount);
+
+                                if (grid.Exists(b => b == gridtest))
+                                {
+                                    Cell n = grid.Find(c => c.Position.X == centerCell.Position.X - x && c.Position.Y == centerCell.Position.Y - y);
+                                    centerCell.Neibourghs.Add(n);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Cell gridtest = grid.Find(node => node.Position.X == centerCell.Position.X - x && node.Position.X >= 0 && node.Position.Y == centerCell.Position.Y - y && node.Position.Y >= 0
+                            && node.Position.X <= cellRowCount && node.Position.Y <= cellRowCount);
+
+                            if (grid.Exists(b => b == gridtest))
+                            {
+                                Cell n = grid.Find(c => c.Position.X == centerCell.Position.X - x && c.Position.Y == centerCell.Position.Y - y);
+                                centerCell.Neibourghs.Add(n);
+                            }
                         }
                     }
                 }

@@ -13,9 +13,12 @@ namespace WizardAlgoritme
     public partial class Form1 : Form
     {
         private GridManager visualManager;
+        public int algorithm;
 
-        public Form1()
+        public Form1(int algorithm)
         {
+            this.algorithm = algorithm;
+
             InitializeComponent();
 
             ClientSize = new Size(500, 500);
@@ -37,7 +40,7 @@ namespace WizardAlgoritme
         {
             if (e.KeyCode == Keys.Space)
             {
-                visualManager.Wizard.Position = visualManager.Wizard.GetNextMove(); ;
+                visualManager.Wizard.Position = visualManager.Wizard.GetNextMove(algorithm);
             }
         }
     }

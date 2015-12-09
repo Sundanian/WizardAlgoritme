@@ -16,6 +16,10 @@ namespace WizardAlgoritme
         private bool canIWinNow;
         private int moveCount = 0;
 
+        private bool aStarBool = true;
+        private bool bFSBool = false;
+        private bool dFSBool = false;
+
         List<Cell> returnCellList;
         List<Cell> openList;
         List<Cell> closedList;
@@ -62,6 +66,45 @@ namespace WizardAlgoritme
         {
             get { return icekey; }
             set { icekey = value; }
+        }
+
+        public bool AStarBool
+        {
+            get
+            {
+                return aStarBool;
+            }
+
+            set
+            {
+                aStarBool = value;
+            }
+        }
+
+        public bool BFSBool
+        {
+            get
+            {
+                return bFSBool;
+            }
+
+            set
+            {
+                bFSBool = value;
+            }
+        }
+
+        public bool DFSBool
+        {
+            get
+            {
+                return dFSBool;
+            }
+
+            set
+            {
+                dFSBool = value;
+            }
         }
 
         public Wizard(Cell startCell, GridManager gridManager)
@@ -338,7 +381,7 @@ namespace WizardAlgoritme
             return null;
         }
 
-        public Cell GetNextMove()
+        public Cell GetNextMove(int algorithm)
         {
             if (moveCount == 0)
             {
@@ -350,7 +393,21 @@ namespace WizardAlgoritme
                         cell.Visitied = false;
                     }
                 }
-                returnCellList = DFS(ShoppingList());
+
+                if (algorithm == 1)
+                {
+                    returnCellList = DFS(ShoppingList());
+                }
+                if (algorithm == 2)
+                {
+                    returnCellList = BFS(ShoppingList());
+                }
+                if (algorithm == 3)
+                {
+                    returnCellList = Astar(ShoppingList());
+                }
+
+
                 moveCount = returnCellList.Count;
             }
             moveCount--;
