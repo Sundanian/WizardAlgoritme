@@ -104,19 +104,6 @@ namespace WizardAlgoritme
             }
         }
 
-        internal List<Cell> Neibourghs
-        {
-            get
-            {
-                return neibourghs;
-            }
-
-            set
-            {
-                neibourghs = value;
-            }
-        }
-
         public Cell(Point position, int size)
         {
             this.position = position;
