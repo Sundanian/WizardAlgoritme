@@ -9,27 +9,26 @@ namespace WizardAlgoritme
 {
     class GridManager
     {
+        private int cellRowCount;
+
         private BufferedGraphics backBuffer;
         private Graphics dc;
         private Rectangle displayRectangle;
-        private int cellRowCount;
         private List<Cell> grid;
         private List<Cell> goals = new List<Cell>();
         private Wizard wizard;
-        Cell wStartCell = null;
+        private Cell wStartCell = null;
 
         public Wizard Wizard
         {
             get { return wizard; }
             set { wizard = value; }
         }
-
         public List<Cell> Goals
         {
             get { return goals; }
             set { goals = value; }
         }
-
         public List<Cell> Grid
         {
             get { return grid; }

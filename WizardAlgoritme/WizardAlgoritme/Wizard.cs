@@ -11,19 +11,7 @@ namespace WizardAlgoritme
     {
         //private int keys; // Skal flyttes ind på Wizard
         private bool stormkey = false;
-
-        public bool Stormkey
-        {
-            get { return stormkey; }
-            set { stormkey = value; }
-        }
         private bool icekey = false;
-
-        public bool Icekey
-        {
-            get { return icekey; }
-            set { icekey = value; }
-        }
         private bool hasPotion;
         private bool canIWinNow;
         private int moveCount = 0;
@@ -48,20 +36,6 @@ namespace WizardAlgoritme
                 hasPotion = value;
             }
         }
-
-        ////public int Keys
-        //{
-        //    get
-        //    {
-        //        return keys;
-        //    }
-
-        //    set
-        //    {
-        //        keys = value;
-        //    }
-        //}
-
         public bool CanIWinNow
         {
             get
@@ -74,11 +48,20 @@ namespace WizardAlgoritme
                 canIWinNow = value;
             }
         }
-
         public Cell Position
         {
             get { return position; }
             set { position = value; }
+        }
+        public bool Stormkey
+        {
+            get { return stormkey; }
+            set { stormkey = value; }
+        }
+        public bool Icekey
+        {
+            get { return icekey; }
+            set { icekey = value; }
         }
 
         public Wizard(Cell startCell, GridManager gridManager)
@@ -157,7 +140,7 @@ namespace WizardAlgoritme
                 closedList.Add(chosenCell);
                 openList.Remove(chosenCell);
 
-                //finds the neibourghs
+                //finds the false neibourghs
                 List<Cell> falseNeibourghs = new List<Cell>();
                 foreach (Cell n in chosenCell.Neibourghs)
                 {
@@ -204,65 +187,6 @@ namespace WizardAlgoritme
                             }
                         }
                     }
-                    //if (cell.Walkable == false)
-                    //{
-                    //    if (cell.Position == new Point(start.Position.X - 1, start.Position.Y))
-                    //    {
-                    //        foreach (Cell c in gridManager.Grid)
-                    //        {
-                    //            if (c.Position == new Point(start.Position.X - 1, start.Position.Y + 1))
-                    //            {
-                    //                falseNeibourghs.Add(c);
-                    //            }
-                    //            if (c.Position == new Point(start.Position.X - 1, start.Position.Y - 1))
-                    //            {
-                    //                falseNeibourghs.Add(c);
-                    //            }
-                    //        }
-                    //    }
-                    //    else if (cell.Position == new Point(start.Position.X + 1, start.Position.Y))
-                    //    {
-                    //        foreach (Cell c in gridManager.Grid)
-                    //        {
-                    //            if (c.Position == new Point(start.Position.X + 1, start.Position.Y + 1))
-                    //            {
-                    //                falseNeibourghs.Add(c);
-                    //            }
-                    //            if (c.Position == new Point(start.Position.X + 1, start.Position.Y - 1))
-                    //            {
-                    //                falseNeibourghs.Add(c);
-                    //            }
-                    //        }
-                    //    }
-                    //    else if (cell.Position == new Point(start.Position.X, start.Position.Y - 1))
-                    //    {
-                    //        foreach (Cell c in gridManager.Grid)
-                    //        {
-                    //            if (c.Position == new Point(start.Position.X + 1, start.Position.Y - 1))
-                    //            {
-                    //                falseNeibourghs.Add(c);
-                    //            }
-                    //            if (c.Position == new Point(start.Position.X - 1, start.Position.Y - 1))
-                    //            {
-                    //                falseNeibourghs.Add(c);
-                    //            }
-                    //        }
-                    //    }
-                    //    else if (cell.Position == new Point(start.Position.X, start.Position.Y + 1))
-                    //    {
-                    //        foreach (Cell c in gridManager.Grid)
-                    //        {
-                    //            if (c.Position == new Point(start.Position.X + 1, start.Position.Y + 1))
-                    //            {
-                    //                falseNeibourghs.Add(c);
-                    //            }
-                    //            if (c.Position == new Point(start.Position.X - 1, start.Position.Y + 1))
-                    //            {
-                    //                falseNeibourghs.Add(c);
-                    //            }
-                    //        }
-                    //    }
-                    //}
                 }
 
                 //adds the neibourghs, calculates f/g/h and adds parent
