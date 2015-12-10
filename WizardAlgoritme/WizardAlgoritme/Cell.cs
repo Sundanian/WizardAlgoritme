@@ -234,7 +234,7 @@ namespace WizardAlgoritme
 
         }
 
-        public int GetFValue(List<Cell> grid, Cell goal)
+        public int GetFValue(Cell goal)
         {
             //g
             Point diff = new Point(Parent.Position.X - position.X, Parent.Position.Y - position.Y);

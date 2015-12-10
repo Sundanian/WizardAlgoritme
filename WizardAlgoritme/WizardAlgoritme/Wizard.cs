@@ -16,10 +16,6 @@ namespace WizardAlgoritme
         private bool canIWinNow;
         private int moveCount = 0;
 
-        private bool aStarBool = true;
-        private bool bFSBool = false;
-        private bool dFSBool = false;
-
         List<Cell> returnCellList;
         List<Cell> openList;
         List<Cell> closedList;
@@ -66,45 +62,6 @@ namespace WizardAlgoritme
         {
             get { return icekey; }
             set { icekey = value; }
-        }
-
-        public bool AStarBool
-        {
-            get
-            {
-                return aStarBool;
-            }
-
-            set
-            {
-                aStarBool = value;
-            }
-        }
-
-        public bool BFSBool
-        {
-            get
-            {
-                return bFSBool;
-            }
-
-            set
-            {
-                bFSBool = value;
-            }
-        }
-
-        public bool DFSBool
-        {
-            get
-            {
-                return dFSBool;
-            }
-
-            set
-            {
-                dFSBool = value;
-            }
         }
 
         public Wizard(Cell startCell, GridManager gridManager)
@@ -173,7 +130,7 @@ namespace WizardAlgoritme
                 Cell chosenCell = openList[0]; // the cell to move to the closed list
                 foreach (Cell cell in openList) // runs through our open list
                 {
-                    if (cell.GetFValue(gridManager.Grid, goal) < chosenCell.GetFValue(gridManager.Grid, goal)) // checks which cell has the lowest f
+                    if (cell.GetFValue(goal) < chosenCell.GetFValue(goal)) // checks which cell has the lowest f
                     {
                         chosenCell = cell;
                     }
@@ -235,14 +192,14 @@ namespace WizardAlgoritme
                 //adds the neibourghs, calculates f/g/h and adds parent
                 foreach (Cell n in chosenCell.Neibourghs)
                 {
-                    if (!falseNeibourghs.Contains(n) && n.Walkable) //Sorts out the false/unreacable neibourghs
+                    if (!falseNeibourghs.Contains(n) && n.Walkable && !closedList.Contains(n)) //Sorts out the false/unreacable neibourghs
                     {
-                        if (!closedList.Contains(n))
+                        if (!openList.Contains(n))
                         {
                             openList.Add(n);
                             n.Parent = chosenCell;
                         }
-
+                        else
                         {
                             //calculates the relative position to the chosenCell
                             int cost;
@@ -266,7 +223,7 @@ namespace WizardAlgoritme
                                 n.Parent = chosenCell;
                             }
                         }
-                        n.GetFValue(gridManager.Grid, goal);
+                        n.GetFValue(goal);
                     }
                 }
 
@@ -398,17 +355,17 @@ namespace WizardAlgoritme
 
                 if (algorithm == 1)
                 {
-                    //returnCellList = Astar(ShoppingList());
+                    returnCellList = Astar(ShoppingList());
 
-                    Cell cell = null;
-                    foreach (Cell c in gridManager.Grid)
-                    {
-                        if (c.Position == new Point(2, 2))
-                        {
-                            cell = c;
-                        }
-                    }
-                    returnCellList = Astar(cell);
+                    //Cell cell = null;
+                    //foreach (Cell c in gridManager.Grid)
+                    //{
+                    //    if (c.Position == new Point(2, 2))
+                    //    {
+                    //        cell = c;
+                    //    }
+                    //}
+                    //returnCellList = Astar(cell);
                 }
                 if (algorithm == 2)
                 {

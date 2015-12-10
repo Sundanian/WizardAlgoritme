@@ -18,6 +18,7 @@ namespace WizardAlgoritme
         private List<Cell> goals = new List<Cell>();
         private Wizard wizard;
         private Cell wStartCell = null;
+        private int algorithm;
 
         public Wizard Wizard
         {
@@ -47,8 +48,9 @@ namespace WizardAlgoritme
             }
         }
 
-        public GridManager(Graphics dc, Rectangle displayRectangle)
+        public GridManager(Graphics dc, Rectangle displayRectangle, int algorithm)
         {
+            this.algorithm = algorithm;
             this.backBuffer = BufferedGraphicsManager.Current.Allocate(dc, displayRectangle);
             this.dc = backBuffer.Graphics;
             this.displayRectangle = displayRectangle;
@@ -139,9 +141,9 @@ namespace WizardAlgoritme
                 {
                     if (!(y == 0 && x == 0))
                     {
-                        if (!wizard.AStarBool)
+                        if (algorithm > 1)
                         {
-                            if (!(x == -1 && y == -1) || (x == -1 && y == 1) || (x == 1 && y == -1) || (x == 1 && y == 1))
+                            if (!(Math.Abs(x) == 1 && Math.Abs(y) == 1))
                             {
                                 Cell gridtest = grid.Find(node => node.Position.X == centerCell.Position.X - x && node.Position.X >= 0 && node.Position.Y == centerCell.Position.Y - y && node.Position.Y >= 0
                                 && node.Position.X <= cellRowCount && node.Position.Y <= cellRowCount);

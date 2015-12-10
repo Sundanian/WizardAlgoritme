@@ -23,7 +23,7 @@ namespace WizardAlgoritme
 
             ClientSize = new Size(500, 500);
 
-            visualManager = new GridManager(CreateGraphics(), this.DisplayRectangle);
+            visualManager = new GridManager(CreateGraphics(), this.DisplayRectangle, algorithm);
         }
 
         private void Form1_Load(object sender, EventArgs e)
