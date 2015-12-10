@@ -228,7 +228,7 @@ namespace WizardAlgoritme
             }
 #if DEBUG
             dc.DrawString(string.Format("F {0} \nG {1} \nH {2}", f, g, h, parent.Position), new Font("Arial", 7, FontStyle.Regular), new SolidBrush(Color.Red), position.X * cellSize, (position.Y * cellSize) + 20);
-            dc.DrawString(string.Format("{0}", position), new Font("Arial", 7, FontStyle.Regular), new SolidBrush(Color.Black), position.X * cellSize, (position.Y * cellSize) + 10);
+            dc.DrawString(string.Format("{0}", parent.Position), new Font("Arial", 7, FontStyle.Regular), new SolidBrush(Color.Black), position.X * cellSize, (position.Y * cellSize) + 10);
 #endif
 
 
@@ -237,8 +237,9 @@ namespace WizardAlgoritme
         public int GetFValue(Cell goal)
         {
             //g
-            Point diff = new Point(Parent.Position.X - position.X, Parent.Position.Y - position.Y);
-            if (diff.X == 1 && diff.Y == 1 || diff.X == -1 && diff.Y == 1 || diff.X == 1 && diff.Y == -1 || diff.X == -1 && diff.Y == -1) //Diagonal
+            Point diff = new Point(position.X - Parent.Position.X, position.Y - Parent.Position.Y);
+
+            if (Math.Abs(diff.X) == 1 && Math.Abs(diff.Y) == 1)
             {
                 g = Parent.G + 14;
             }
@@ -250,9 +251,11 @@ namespace WizardAlgoritme
             {
                 g = Parent.G + 10;
             }
+
             //h
             diff = new Point(Math.Abs(goal.Position.X - position.X), Math.Abs(goal.Position.Y - position.Y));
             h = (diff.X + diff.Y) * 10;
+            
             //f
             f = g + h;
             return f;
