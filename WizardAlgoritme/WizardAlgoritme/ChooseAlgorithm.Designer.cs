@@ -74,8 +74,8 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(309, 68);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Vælg en algoritme.\r\n\r\nTryk mellemrum for at rykke troldmanden et felt.\r\n(Hold ikk" +
-    "e mellemrum inde)";
+            this.label1.Text = "Vælg en algoritme.\r\n\r\nTryk mellemrum for at rykke troldmanden et felt.\r\nHold ikke" +
+    " mellemrum inde, eller tryk for hurtigt.";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // ChooseAlgorithm
