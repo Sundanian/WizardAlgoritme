@@ -388,6 +388,8 @@ namespace WizardAlgoritme
                 foreach (Cell cell in gridManager.Grid)
                 {
                     cell.Parent = cell;
+                    cell.G = 0;
+                    cell.H = 0;
                     if (cell.MyType != CellType.FORESTPATH)
                     {
                         cell.Visitied = false;
@@ -396,17 +398,17 @@ namespace WizardAlgoritme
 
                 if (algorithm == 1)
                 {
-                    returnCellList = Astar(ShoppingList());
+                    //returnCellList = Astar(ShoppingList());
 
-                    //Cell cell = null;
-                    //foreach (Cell c in gridManager.Grid)
-                    //{
-                    //    if (c.Position == new Point(2,2))
-                    //    {
-                    //        cell = c;
-                    //    }
-                    //}
-                    //returnCellList = Astar(cell);
+                    Cell cell = null;
+                    foreach (Cell c in gridManager.Grid)
+                    {
+                        if (c.Position == new Point(2, 2))
+                        {
+                            cell = c;
+                        }
+                    }
+                    returnCellList = Astar(cell);
                 }
                 if (algorithm == 2)
                 {
@@ -422,6 +424,7 @@ namespace WizardAlgoritme
             }
             moveCount--;
             return returnCellList[moveCount];
+            //return returnCellList[returnCellList.Count - 1];
         }
     }
 }

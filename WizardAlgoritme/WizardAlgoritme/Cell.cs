@@ -227,7 +227,7 @@ namespace WizardAlgoritme
                 dc.DrawImage(sprite, BoundingRectangle);
             }
 #if DEBUG
-            dc.DrawString(string.Format("F {0} G {1} \nH {2} \nP {3}", f, g, h, parent.Position), new Font("Arial", 7, FontStyle.Regular), new SolidBrush(Color.Red), position.X * cellSize, (position.Y * cellSize) + 20);
+            dc.DrawString(string.Format("F {0} \nG {1} \nH {2}", f, g, h, parent.Position), new Font("Arial", 7, FontStyle.Regular), new SolidBrush(Color.Red), position.X * cellSize, (position.Y * cellSize) + 20);
             dc.DrawString(string.Format("{0}", position), new Font("Arial", 7, FontStyle.Regular), new SolidBrush(Color.Black), position.X * cellSize, (position.Y * cellSize) + 10);
 #endif
 
